@@ -34,7 +34,7 @@ jobs:
         run: npm install
 
       - name: Build page
-        run: npm build
+        run: npm run-script build
         env:
           NODE_ENV: production
 
@@ -42,4 +42,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.SECRET_KEY }}
-          publish_dir: ./dist
+          publish_dir: ./public
