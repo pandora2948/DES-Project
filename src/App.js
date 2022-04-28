@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "@emotion/styled/macro";
+import * as variables from "./assets/variables";
+import PlainTextInput from "./components/Input/PlainTextInput";
+import "./App.css";
 
-function App() {
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: ${variables.colors.subColor};
+
+  header {
+    width: 100%;
+    font-size: 2.5rem;
+    padding: 1.5rem 0 1.5rem 1rem;
+    display: block;
+    border-bottom: 2px solid ${variables.colors.subColor};
+    margin-bottom: 2rem;
+    background-color: ${variables.colors.mainBlueColor};
+  }
+`;
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <header>DES</header>
+      <PlainTextInput></PlainTextInput>
+    </Main>
   );
-}
+};
 
 export default App;
