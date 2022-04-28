@@ -2,6 +2,7 @@ import styled from "@emotion/styled/macro";
 import * as variables from "./assets/variables";
 import PlainTextInput from "./components/Input/PlainTextInput";
 import "./App.css";
+import PlainBitOutput from "./components/Display/PlainBitOutput";
 
 const Main = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ const App = () => {
     <Main>
       <header>DES</header>
       <PlainTextInput></PlainTextInput>
+      <PlainBitOutput></PlainBitOutput>
     </Main>
   );
 };

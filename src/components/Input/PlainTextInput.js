@@ -20,6 +20,7 @@ const InputWrapper = styled.div`
 
   textarea {
     border-radius: 15px;
+    font-family: inherit;
     background-color: ${variables.colors.mainBlackColor};
     padding: 0.5rem;
     outline: none;
