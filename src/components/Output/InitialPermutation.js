@@ -7,19 +7,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  padding: 0 5rem;
   margin-top: 8rem;
 `;
 
 const IpTable = styled.table`
-  width: 70%;
+  width: 100%;
   border-collapse: collapse;
-  margin: 4rem 0;
-  :first-of-type {
-    margin: 4rem 0 0 0;
+  :nth-of-type(odd) {
+    margin: 4rem 0;
   }
   :last-of-type {
-    margin: 0 0 4rem 0;
+    margin-bottom: 4rem;
   }
   td {
     text-align: center;
