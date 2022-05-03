@@ -20,12 +20,15 @@ const Container = styled.div`
 const DivTable = styled.table`
   width: 80%;
   border-collapse: collapse;
+
   :nth-of-type(odd) {
     margin: 4rem 0;
   }
+
   :last-of-type {
     margin-bottom: 4rem;
   }
+
   td {
     text-align: center;
     font-weight: 700;
@@ -68,6 +71,7 @@ const IpDivide = (props) => {
           );
         }
       }
+
       leftSideTable.push(
         <DivTable key={`d - table - ${Math.random().toString().slice(3)}`}>
           <tbody key={`d -  tbody - ${Math.random().toString().slice(3)}`}>

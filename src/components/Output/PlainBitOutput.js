@@ -16,10 +16,7 @@ const Bit = styled.div``;
 const PlainBitOutput = (props) => {
   const codes = props.plainBit;
   const components = codes.map((el) => {
-    const key = `${parseInt(el, 2)} - ${
-      Math.random().toString().split(".")[1]
-    }`;
-    return <Bit key={key}>{el}</Bit>;
+    return <Bit key={`bit - ${Math.random().toString().slice(3)}`}>{el}</Bit>;
   });
 
   return <Output css={mixins.displayBox}>{components}</Output>;
