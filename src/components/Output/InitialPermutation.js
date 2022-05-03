@@ -31,7 +31,6 @@ const IpTable = styled.table`
 const InitialPermutation = (props) => {
   const { ip } = props;
   const createCells = () => {
-    console.log(ip.length);
     const table = [];
     for (let k = 0; k < ip.length; k += 1) {
       const cells = [];
@@ -39,15 +38,21 @@ const InitialPermutation = (props) => {
         const rows = [];
         for (let j = 0; j < 8; j += 1) {
           const data = (
-            <td key={Math.random().toString().slice(3)}>{ip[k][i][j]}</td>
+            <td key={`td - ${Math.random().toString().slice(3)}`}>
+              {ip[k][i][j]}
+            </td>
           );
           rows.push(data);
         }
-        cells.push(<tr key={Math.random().toString().slice(3)}>{rows}</tr>);
+        cells.push(
+          <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
+        );
       }
       table.push(
-        <IpTable>
-          <tbody key={Math.random().toString().slice(3)}>{cells}</tbody>
+        <IpTable key={`table - ${Math.random().toString().slice(3)}`}>
+          <tbody key={`tbody - ${Math.random().toString().slice(3)}`}>
+            {cells}
+          </tbody>
         </IpTable>
       );
     }

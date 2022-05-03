@@ -70,7 +70,7 @@ const PlainTextInput = (props) => {
       preInitialPermutation.push(table);
     }
     const initialPermutation = [];
-    for (let k = 0; k < preInitialPermutation.length; k += 1) {
+    for (let k = 0; k < ipLength; k += 1) {
       const table = [];
       for (let j = 1; j !== 8; j = (j + 2) % 9) {
         const row = [];
@@ -81,7 +81,6 @@ const PlainTextInput = (props) => {
       }
       initialPermutation.push(table);
     }
-
     props.modifyInitialPermutation(initialPermutation);
     props.modifyPlainBit(codes);
   };
