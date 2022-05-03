@@ -38,7 +38,6 @@ const PlainTextInput = (props) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       const plainText = e.target.value;
-      if (plainText === "") return;
       props.modifyInputValue(e.target.value);
       toPlainBit(plainText);
     }
