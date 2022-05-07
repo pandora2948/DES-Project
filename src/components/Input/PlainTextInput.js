@@ -34,13 +34,32 @@ const InputWrapper = styled.div`
 `;
 
 const PlainTextInput = (props) => {
+  const {
+    setKeyValue,
+    modifyInputValue,
+    modifyInitialPermutation,
+    modifyPlainBit,
+  } = props;
+
   const handleInputText = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       const plainText = e.target.value;
-      props.modifyInputValue(e.target.value);
+      modifyInputValue(e.target.value);
       toPlainBit(plainText);
+      keyGenerate();
     }
+  };
+
+  const keyGenerate = () => {
+    const randoms = [];
+    for (let i = 0; i < 8; i += 1) {
+      const rand = Math.floor(Math.random() * 256)
+        .toString(2)
+        .padStart(8, "0");
+      randoms.push(rand);
+    }
+    setKeyValue(randoms);
   };
 
   const toPlainBit = (plainText) => {
@@ -80,8 +99,8 @@ const PlainTextInput = (props) => {
       }
       initialPermutation.push(table);
     }
-    props.modifyInitialPermutation(initialPermutation);
-    props.modifyPlainBit(codes);
+    modifyInitialPermutation(initialPermutation);
+    modifyPlainBit(codes);
   };
 
   return (

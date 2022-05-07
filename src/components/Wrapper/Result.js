@@ -5,11 +5,12 @@ import PlainBitOutput from "../Output/PlainBitOutput";
 
 const Wrapper = styled.div``;
 const Result = (props) => {
+  const { plainBit, initialPermutation } = props;
   return (
     <Wrapper>
-      <PlainBitOutput plainBit={props.plainBit}></PlainBitOutput>
-      <InitialPermutation ip={props.initialPermutation}></InitialPermutation>
-      <IpDivide ip={props.initialPermutation}></IpDivide>
+      <PlainBitOutput plainBit={plainBit} />
+      <InitialPermutation ip={initialPermutation} />
+      <IpDivide ip={initialPermutation} />
     </Wrapper>
   );
 };

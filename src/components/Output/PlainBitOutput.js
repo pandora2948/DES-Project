@@ -14,8 +14,8 @@ const Output = styled.div`
 const Bit = styled.div``;
 
 const PlainBitOutput = (props) => {
-  const codes = props.plainBit;
-  const components = codes.map((el) => {
+  const { plainBit } = props;
+  const components = plainBit.map((el) => {
     return <Bit key={`bit - ${Math.random().toString().slice(3)}`}>{el}</Bit>;
   });
 

@@ -89,13 +89,15 @@ const IpDivide = (props) => {
       );
     }
 
-    return [leftSideTable, rightSideTable];
+    return { leftSideTable, rightSideTable };
   };
+
+  const { leftSideTable, rightSideTable } = divideTable();
 
   return (
     <Wrapper>
-      <Container>{divideTable()[0]}</Container>
-      <Container>{divideTable()[1]}</Container>
+      <Container>{leftSideTable}</Container>
+      <Container>{rightSideTable}</Container>
     </Wrapper>
   );
 };
