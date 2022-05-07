@@ -1,33 +1,65 @@
 import styled from "@emotion/styled";
 import PlainTextInput from "../Input/PlainTextInput";
+import KeyGenerator from "../Output/KeyGenerator";
 import { useState } from "react";
 import Result from "./Result";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Wrapper = styled.div`
-  width: 60%;
+  padding: 5rem;
   display: flex;
   flex-flow: column wrap;
+`;
+
+const TypeSlider = styled(Slider)`
+  width: 90%;
+
+  .slick-dots button {
+    &::before {
+      color: white !important ;
+    }
+  }
 `;
 
 const Body = () => {
   const [plainText, setPlainText] = useState("");
   const [plainBit, setPlainBit] = useState("");
   const [initialPermutation, setInitialPermutation] = useState("");
+  const [keyValue, setKeyValue] = useState("");
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    swipe: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
-    <Wrapper>
-      <PlainTextInput
-        inputValue={plainText}
-        modifyPlainBit={setPlainBit}
-        modifyInputValue={setPlainText}
-        modifyInitialPermutation={setInitialPermutation}
-      ></PlainTextInput>
-      {plainText !== "" ? (
-        <Result
-          plainBit={plainBit}
-          initialPermutation={initialPermutation}
-        ></Result>
-      ) : null}
-    </Wrapper>
+    <TypeSlider {...settings}>
+      <Wrapper>
+        <PlainTextInput
+          inputValue={plainText}
+          modifyPlainBit={setPlainBit}
+          modifyInputValue={setPlainText}
+          modifyInitialPermutation={setInitialPermutation}
+          setKeyValue={setKeyValue}
+        />
+        {plainText !== "" ? (
+          <Result
+            plainBit={plainBit}
+            initialPermutation={initialPermutation}
+            keyValue={keyValue}
+          />
+        ) : null}
+      </Wrapper>
+      <Wrapper>
+        <KeyGenerator />
+      </Wrapper>
+    </TypeSlider>
   );
 };
 
