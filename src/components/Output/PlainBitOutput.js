@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import mixins from "../../assets/mixins";
 
 const Output = styled.div`
-  ${mixins.displayBox}
+  ${mixins.PlainTextBox}
   margin: 5rem 0 0 0;
   padding: 0.5rem;
   text-align: center;

@@ -3,7 +3,7 @@ import mixins from "../../assets/mixins";
 import variables from "../../assets/variables";
 
 const Wrapper = styled.div`
-  ${mixins.displayBox}
+  ${mixins.PlainTextBox}
   display: flex;
   flex-direction: column;
   align-items: center;

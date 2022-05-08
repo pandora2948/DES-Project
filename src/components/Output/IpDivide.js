@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  ${mixins.displayBox}
+  ${mixins.PlainTextBox}
   width: 45%;
   display: flex;
   flex-direction: column;
