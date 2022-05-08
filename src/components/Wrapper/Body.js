@@ -27,8 +27,6 @@ const TypeSlider = styled(Slider)`
 
 const Body = () => {
   const [plainText, setPlainText] = useState("");
-  const [plainBit, setPlainBit] = useState("");
-  const [initialPermutation, setInitialPermutation] = useState("");
   const [keyValue, setKeyValue] = useState("");
 
   const settings = {
@@ -40,26 +38,23 @@ const Body = () => {
     slidesToScroll: 1,
   };
 
+  const handleEmptyInput = (element, value) => {
+    if (value === "") {
+      return;
+    } else {
+      return element;
+    }
+  };
+
   return (
     <TypeSlider {...settings}>
       <Wrapper>
-        <PlainTextInput
-          inputValue={plainText}
-          modifyPlainBit={setPlainBit}
-          modifyInputValue={setPlainText}
-          modifyInitialPermutation={setInitialPermutation}
-          setKeyValue={setKeyValue}
-        />
-        {plainText !== "" ? (
-          <Result
-            plainBit={plainBit}
-            initialPermutation={initialPermutation}
-            keyValue={keyValue}
-          />
-        ) : null}
+        <PlainTextInput setPlainText={setPlainText} />
+        {handleEmptyInput(<PlainTextResult plainText={plainText} />, plainText)}
       </Wrapper>
       <Wrapper>
-        <KeyGenerator />
+        <KeyInput setKeyValue={setKeyValue}></KeyInput>
+        {handleEmptyInput(<KeyGenerator keyValue={keyValue} />, keyValue)}
       </Wrapper>
     </TypeSlider>
   );

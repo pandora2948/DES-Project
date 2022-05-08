@@ -34,79 +34,19 @@ const InputWrapper = styled.div`
 `;
 
 const PlainTextInput = (props) => {
-  const {
-    setKeyValue,
-    modifyInputValue,
-    modifyInitialPermutation,
-    modifyPlainBit,
-  } = props;
+  const { setPlainText } = props;
 
   const handleInputText = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      const plainText = e.target.value;
-      modifyInputValue(e.target.value);
-      toPlainBit(plainText);
-      keyGenerate();
+      setPlainText(e.target.value);
     }
-  };
-
-  const keyGenerate = () => {
-    const randoms = [];
-    for (let i = 0; i < 8; i += 1) {
-      const rand = Math.floor(Math.random() * 256)
-        .toString(2)
-        .padStart(8, "0");
-      randoms.push(rand);
-    }
-    setKeyValue(randoms);
-  };
-
-  const toPlainBit = (plainText) => {
-    let length = plainText.length;
-    const codes = [];
-
-    for (const char of plainText) {
-      codes.push(char.charCodeAt().toString(2).padStart(8, "0"));
-    }
-
-    while (length % 8 !== 0) {
-      codes.push(
-        Math.floor(Math.random() * 256)
-          .toString(2)
-          .padStart(8, "0")
-      );
-      length += 1;
-    }
-
-    const ipLength = codes.length / 8;
-    const preInitialPermutation = [];
-
-    const splitedCodes = codes.map((el) => el.split(""));
-    for (let i = 0; i < ipLength; i += 1) {
-      const table = splitedCodes.splice(0, 8);
-      preInitialPermutation.push(table);
-    }
-    const initialPermutation = [];
-    for (let k = 0; k < ipLength; k += 1) {
-      const table = [];
-      for (let j = 1; j !== 8; j = (j + 2) % 9) {
-        const row = [];
-        for (let i = preInitialPermutation[k].length - 1; i >= 0; i -= 1) {
-          row.push(preInitialPermutation[k][i][j]);
-        }
-        table.push(row);
-      }
-      initialPermutation.push(table);
-    }
-    modifyInitialPermutation(initialPermutation);
-    modifyPlainBit(codes);
   };
 
   return (
     <InputWrapper>
       <div className="header">PLAIN TEXT INPUT</div>
-      <textarea onKeyDown={handleInputText}></textarea>
+      <textarea id="plainTextInput" onKeyDown={handleInputText}></textarea>
     </InputWrapper>
   );
 };

@@ -11,15 +11,15 @@ const Output = styled.div`
   row-gap: 0.5rem;
 `;
 
-const Bit = styled.div``;
-
 const PlainBitOutput = (props) => {
   const { plainBit } = props;
   const components = plainBit.map((el) => {
-    return <Bit key={`bit - ${Math.random().toString().slice(3)}`}>{el}</Bit>;
+    return (
+      <div key={`plain_bit - ${Math.random().toString().slice(3)}`}>{el}</div>
+    );
   });
 
-  return <Output css={mixins.displayBox}>{components}</Output>;
+  return <Output>{components}</Output>;
 };
 
 export default PlainBitOutput;
