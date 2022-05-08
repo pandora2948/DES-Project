@@ -3,7 +3,7 @@ import mixins from "../../assets/mixins";
 import variables from "../../assets/variables";
 
 const Wrapper = styled.div`
-  ${mixins.PlainTextBox}
+  ${mixins.KeyBox}
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,10 +11,9 @@ const Wrapper = styled.div`
   margin-top: 8rem;
 `;
 
-const IpTable = styled.table`
+const CpTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-
   :nth-of-type(odd) {
     margin: 4rem 0;
   }
@@ -27,23 +26,24 @@ const IpTable = styled.table`
     text-align: center;
     font-weight: 700;
     padding: 1px 5px;
-    border: 1px solid ${variables.colors.subColor};
+    color: ${variables.colors.keyColorBrightRed};
+    border: 1px solid ${variables.colors.keyColorRed};
   }
 `;
 
-const InitialPermutation = (props) => {
-  const { ip } = props;
+const CompressionPermutation = (props) => {
+  const { compressionPermutation } = props;
 
   const createCells = () => {
     const table = [];
-    for (let k = 0; k < ip.length; k += 1) {
+    for (let i = 0; i < compressionPermutation.length; i += 1) {
       const cells = [];
-      for (let i = 0; i < 8; i += 1) {
+      for (let j = 0; j < 8; j += 1) {
         const rows = [];
-        for (let j = 0; j < 8; j += 1) {
+        for (let k = 0; k < 7; k += 1) {
           const data = (
             <td key={`td - ${Math.random().toString().slice(3)}`}>
-              {ip[k][i][j]}
+              {compressionPermutation[i][j][k]}
             </td>
           );
           rows.push(data);
@@ -54,11 +54,11 @@ const InitialPermutation = (props) => {
       }
 
       table.push(
-        <IpTable key={`table - ${Math.random().toString().slice(3)}`}>
+        <CpTable key={`table - ${Math.random().toString().slice(3)}`}>
           <tbody key={`tbody - ${Math.random().toString().slice(3)}`}>
             {cells}
           </tbody>
-        </IpTable>
+        </CpTable>
       );
     }
     return table;
@@ -67,4 +67,4 @@ const InitialPermutation = (props) => {
   return <Wrapper>{createCells()}</Wrapper>;
 };
 
-export default InitialPermutation;
+export default CompressionPermutation;

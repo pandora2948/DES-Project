@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import mixins from "../../assets/mixins";
+import variables from "../../assets/variables";
 
 const Wrapper = styled.div`
   ${mixins.KeyBox}
+  color: ${variables.colors.keyColorBrightRed};
   margin: 5rem 0 0 0;
   padding: 0.5rem;
   text-align: center;
