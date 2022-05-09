@@ -36,32 +36,32 @@ const CompressionPermutation = (props) => {
 
   const createCells = () => {
     const table = [];
-    for (let i = 0; i < compressionPermutation.length; i += 1) {
-      const cells = [];
-      for (let j = 0; j < 8; j += 1) {
-        const rows = [];
-        for (let k = 0; k < 7; k += 1) {
-          const data = (
-            <td key={`td - ${Math.random().toString().slice(3)}`}>
-              {compressionPermutation[i][j][k]}
-            </td>
-          );
-          rows.push(data);
-        }
-        cells.push(
-          <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
-        );
-      }
 
+    for (let i = 0; i < 8; i += 1) {
+      const rows = [];
+
+      for (let j = 0; j < 7; j += 1) {
+        const data = (
+          <td key={`td - ${Math.random().toString().slice(3)}`}>
+            {compressionPermutation[i][j]}
+          </td>
+        );
+        rows.push(data);
+      }
       table.push(
-        <CpTable key={`table - ${Math.random().toString().slice(3)}`}>
-          <tbody key={`tbody - ${Math.random().toString().slice(3)}`}>
-            {cells}
-          </tbody>
-        </CpTable>
+        <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
       );
     }
-    return table;
+
+    const element = (
+      <CpTable key={`table - ${Math.random().toString().slice(3)}`}>
+        <tbody key={`tbody - ${Math.random().toString().slice(3)}`}>
+          {table}
+        </tbody>
+      </CpTable>
+    );
+
+    return element;
   };
 
   return <Wrapper>{createCells()}</Wrapper>;

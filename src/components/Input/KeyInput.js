@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useCallback } from "react";
 import mixins from "../../assets/mixins";
 import variables from "../../assets/variables";
 
@@ -33,37 +34,148 @@ const Wrapper = styled.div`
   }
 `;
 
-const KeyInput = ({ setKeyValue }) => {
+const parseKeyBit = (StrKey) => {
+  const keyBits = [];
+  for (const char of StrKey) {
+    keyBits.push(char.charCodeAt().toString(2).padStart(8, "0"));
+  }
+  return keyBits;
+};
+
+const convertCompressionPermutation = (keyBits) => {
+  const splittedCode = keyBits.map((el) => el.split(""));
+  const codePage = splittedCode.flatMap((el) => el);
+  const compressionPermutation = [];
+
+  const leftCP = [];
+  const rightCP = [];
+
+  let number = 56;
+
+  for (let i = 0; i < 4; i += 1) {
+    const rows = [];
+    for (let j = 0; j < 7; j += 1) {
+      rows.push(codePage[number]);
+      number = (number - 8 + 65) % 65;
+    }
+    leftCP.push(rows);
+  }
+
+  number = 62;
+
+  for (let i = 0; i < 3; i += 1) {
+    const rows = [];
+    for (let j = 0; j < 7; j += 1) {
+      rows.push(codePage[number]);
+      number = (number - 8 + 63) % 63;
+    }
+    rightCP.push(rows);
+  }
+
+  number = 20;
+  const rows = [];
+
+  for (let i = 0; i < 7; i += 1) {
+    rows.push(codePage[number]);
+    number = (number - 8 + 31) % 31;
+  }
+  rightCP.push(rows);
+  compressionPermutation.push(...leftCP, ...rightCP);
+
+  return { leftCP, rightCP, compressionPermutation };
+};
+
+const shiftCP = (leftCP, rightCP) => {
+  const leftShiftedRounds = [];
+  const rightShiftedRounds = [];
+  let shiftCount = 0;
+
+  for (let i = 0; i < 16; i += 1) {
+    const flatLeftCP = leftCP.flatMap((el) => el);
+    const flatRightCP = rightCP.flatMap((el) => el);
+    const leftShift = [];
+    const rightShift = [];
+    let numberOfElement = 0;
+    if ([0, 1, 8, 15].includes(i)) {
+      shiftCount += 1;
+    } else {
+      shiftCount += 2;
+    }
+
+    for (let j = 0; j < 4; j += 1) {
+      const leftRow = [];
+      const rightRow = [];
+      for (let k = 0; k < 7; k += 1) {
+        leftRow.push(flatLeftCP[(numberOfElement + shiftCount) % 28]);
+        rightRow.push(flatRightCP[(numberOfElement + shiftCount) % 28]);
+        numberOfElement += 1;
+      }
+      leftShift.push(leftRow);
+      rightShift.push(rightRow);
+    }
+    leftShiftedRounds.push(leftShift);
+    rightShiftedRounds.push(rightShift);
+  }
+  return { leftShiftedRounds, rightShiftedRounds };
+};
+
+const setKeyValues = (StrKey, setKeyValue) => {
+  const keyBits = parseKeyBit(StrKey);
+  const { leftCP, rightCP, compressionPermutation } =
+    convertCompressionPermutation(keyBits);
+  const { leftShiftedRounds, rightShiftedRounds } = shiftCP(leftCP, rightCP);
+  let isEmpty;
+  if (StrKey === "") {
+    isEmpty = true;
+  } else {
+    isEmpty = false;
+  }
+  setKeyValue((prv) => {
+    return {
+      isEmpty,
+      ...prv,
+      keyBits,
+      compressionPermutation,
+      leftCP,
+      rightCP,
+      leftShiftedRounds,
+      rightShiftedRounds,
+    };
+  });
+};
+
+const KeyInput = ({ keyValue, setKeyValue }) => {
   const handleInputKey = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      keyGenerate(e.target.value);
+      keyGenerate(e.target);
+      setKeyValues(e.target.value, setKeyValue);
     }
   };
 
-  const keyGenerate = (keyValue) => {
-    let length = keyValue.length;
-    const codes = [];
+  const keyGenerate = useCallback(
+    (target) => {
+      let { value: StrKey } = target;
+      let length = StrKey.length;
 
-    for (const char of keyValue) {
-      codes.push(char.charCodeAt().toString(2).padStart(8, "0"));
-    }
-
-    while (length % 8 !== 0) {
-      codes.push(
-        Math.floor(Math.random() * 256)
-          .toString(2)
-          .padStart(8, "0")
-      );
-      length += 1;
-    }
-    setKeyValue(codes);
-  };
+      while (length % 8 !== 0) {
+        StrKey += String.fromCharCode(Math.floor(Math.random() * 256));
+        length += 1;
+      }
+      target.value = StrKey;
+      setKeyValue({ StrKey });
+    },
+    [setKeyValue]
+  );
 
   return (
     <Wrapper>
       <div className="header">KEY VALUE INPUT</div>
-      <textarea id="keyInput" onKeyDown={handleInputKey}></textarea>
+      <textarea
+        id="keyInput"
+        maxLength={8}
+        onKeyDown={handleInputKey}
+      ></textarea>
     </Wrapper>
   );
 };
