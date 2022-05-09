@@ -37,7 +37,7 @@ const DivTable = styled.table`
   }
 `;
 
-const IpDivide = (props) => {
+const IPDivide = (props) => {
   const { ip } = props;
 
   const divideTable = () => {
@@ -50,7 +50,7 @@ const IpDivide = (props) => {
         const rows = [];
         for (let j = 0; j < 8; j += 1) {
           const data = (
-            <td key={`d - td - ${Math.random().toString().slice(3)}`}>
+            <td key={`IP-D - td - ${Math.random().toString().slice(3)}`}>
               {ip[k][i][j]}
             </td>
           );
@@ -59,13 +59,13 @@ const IpDivide = (props) => {
 
         if (i < 4) {
           leftCells.push(
-            <tr key={`d - tr - ${Math.random().toString().slice(3)}`}>
+            <tr key={`IP-D - tr - ${Math.random().toString().slice(3)}`}>
               {rows}
             </tr>
           );
         } else {
           rightCells.push(
-            <tr key={`d - tr - ${Math.random().toString().slice(3)}`}>
+            <tr key={`IP-d - tr - ${Math.random().toString().slice(3)}`}>
               {rows}
             </tr>
           );
@@ -73,16 +73,16 @@ const IpDivide = (props) => {
       }
 
       leftSideTable.push(
-        <DivTable key={`d - table - ${Math.random().toString().slice(3)}`}>
-          <tbody key={`d -  tbody - ${Math.random().toString().slice(3)}`}>
+        <DivTable key={`IP-D - table - ${Math.random().toString().slice(3)}`}>
+          <tbody key={`IP-D -  tbody - ${Math.random().toString().slice(3)}`}>
             {leftCells}
           </tbody>
         </DivTable>
       );
 
       rightSideTable.push(
-        <DivTable key={`d - table - ${Math.random().toString().slice(3)}`}>
-          <tbody key={`d -  tbody - ${Math.random().toString().slice(3)}`}>
+        <DivTable key={`IP-D - table - ${Math.random().toString().slice(3)}`}>
+          <tbody key={`IP-D -  tbody - ${Math.random().toString().slice(3)}`}>
             {rightCells}
           </tbody>
         </DivTable>
@@ -102,4 +102,4 @@ const IpDivide = (props) => {
   );
 };
 
-export default IpDivide;
+export default IPDivide;

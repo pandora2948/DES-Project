@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import InitialPermutation from "../Output/InitialPermutation";
-import IpDivide from "../Output/IpDivide";
+import IPDivide from "../Output/IPDivide";
 import PlainBitOutput from "../Output/PlainBitOutput";
 
 const Wrapper = styled.div``;
@@ -54,7 +54,7 @@ const PlainTextResult = (props) => {
     <Wrapper>
       <PlainBitOutput plainBit={plainBit} />
       <InitialPermutation ip={initialPermutation} />
-      <IpDivide ip={initialPermutation} />
+      <IPDivide ip={initialPermutation} />
     </Wrapper>
   );
 };

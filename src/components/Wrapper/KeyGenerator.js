@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import CompressionPermutation from "../Output/CompressionPermutation";
+import CPDivide from "../Output/CPDivide";
+import CPShift from "../Output/CPShift";
 import KeyBits from "../Output/KeyBits";
 
 const Wrapper = styled.div`
@@ -16,6 +18,8 @@ const KeyGenerator = (props) => {
     const splittedCode = keyValue.map((el) => el.split(""));
     const codePages = [];
     const compressionPermutation = [];
+    const leftCP = [];
+    const rightCP = [];
     let number;
 
     for (let i = 0; i < length; i += 1) {
@@ -54,16 +58,21 @@ const KeyGenerator = (props) => {
         number = (number - 8 + 31) % 31;
       }
       rightPages.push(rows);
+      leftCP.push(leftPages);
+      rightCP.push(rightPages);
       compressionPermutation.push([...leftPages, ...rightPages]);
     }
-    return compressionPermutation;
+    return { leftCP, rightCP, compressionPermutation };
   };
-  const compressionPermutation = convertCompressionPermutation();
+  const { leftCP, rightCP, compressionPermutation } =
+    convertCompressionPermutation();
 
   return (
     <Wrapper>
       <KeyBits keyValue={keyValue} />
       <CompressionPermutation compressionPermutation={compressionPermutation} />
+      <CPDivide CPDivided={{ leftCP, rightCP }} />
+      <CPShift CPDivided={{ leftCP, rightCP }} />
     </Wrapper>
   );
 };
