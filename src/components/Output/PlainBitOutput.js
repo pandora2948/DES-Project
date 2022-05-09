@@ -11,8 +11,7 @@ const Output = styled.div`
   row-gap: 0.5rem;
 `;
 
-const PlainBitOutput = (props) => {
-  const { plainBit } = props;
+const PlainBitOutput = ({ plainBit }) => {
   const components = plainBit.map((el) => {
     return (
       <div key={`plain_bit - ${Math.random().toString().slice(3)}`}>{el}</div>

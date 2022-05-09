@@ -4,9 +4,7 @@ import IPDivide from "../Output/IPDivide";
 import PlainBitOutput from "../Output/PlainBitOutput";
 
 const Wrapper = styled.div``;
-const PlainTextResult = (props) => {
-  const { plainText } = props;
-
+const PlainTextResult = ({ plainText }) => {
   const toPlainBit = (plainText) => {
     let length = plainText.length;
     const codes = [];

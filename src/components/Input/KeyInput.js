@@ -33,9 +33,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const KeyInput = (props) => {
-  const { setKeyValue } = props;
-
+const KeyInput = ({ setKeyValue }) => {
   const handleInputKey = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();

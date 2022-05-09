@@ -33,9 +33,7 @@ const InputWrapper = styled.div`
   }
 `;
 
-const PlainTextInput = (props) => {
-  const { setPlainText } = props;
-
+const PlainTextInput = ({ setPlainText }) => {
   const handleInputText = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();

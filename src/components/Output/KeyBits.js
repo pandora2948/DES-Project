@@ -13,9 +13,8 @@ const Wrapper = styled.div`
   row-gap: 0.5rem;
 `;
 
-const KeyBits = (props) => {
-  const { keyValue } = props;
-  const components = keyValue.map((el) => {
+const KeyBits = ({ keyBits }) => {
+  const components = keyBits.map((el) => {
     return (
       <div key={`key_bit - ${Math.random().toString().slice(3)}`}>{el}</div>
     );

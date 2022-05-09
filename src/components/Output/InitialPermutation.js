@@ -31,9 +31,7 @@ const IpTable = styled.table`
   }
 `;
 
-const InitialPermutation = (props) => {
-  const { ip } = props;
-
+const InitialPermutation = ({ ip }) => {
   const createCells = () => {
     const table = [];
     for (let k = 0; k < ip.length; k += 1) {

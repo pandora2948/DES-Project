@@ -37,9 +37,7 @@ const DivTable = styled.table`
   }
 `;
 
-const IPDivide = (props) => {
-  const { ip } = props;
-
+const IPDivide = ({ ip }) => {
   const divideTable = () => {
     const leftSideTable = [];
     const rightSideTable = [];
