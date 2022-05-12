@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
-import CompressionPermutation from "./CompressionPermutation";
-import CPDivide from "./CPDivide";
-import CPShift from "./CPShift";
-import FinalCPKeys from "./FinalCPKeys";
+import CompressionPermutation from "./ProcessComponents/CompressionPermutation";
+import CPDivide from "./ProcessComponents/CPDivide";
+import CPShift from "./ProcessComponents/CPShift";
+import FinalCPKeys from "./ProcessComponents/FinalCPKeys";
+import KeyBits from "./ProcessComponents/KeyBits";
 
 const Wrapper = styled.div``;
 
-const KeyOutput = ({
+const KeyResult = ({
   keyValue: {
     keyBits,
     compressionPermutation,
@@ -19,7 +20,7 @@ const KeyOutput = ({
 }) => {
   return (
     <Wrapper>
-      <keyBits keyBits={keyBits} />
+      <KeyBits keyBits={keyBits} />
       <CompressionPermutation compressionPermutation={compressionPermutation} />
       <CPDivide CPDivided={{ leftCP, rightCP }} />
       <CPShift CPShifted={{ leftShiftedRounds, rightShiftedRounds }} />
@@ -28,4 +29,4 @@ const KeyOutput = ({
   );
 };
 
-export default KeyOutput;
+export default KeyResult;

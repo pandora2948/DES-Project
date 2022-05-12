@@ -1,10 +1,9 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useCallback } from "react";
 import mixins from "assets/mixins";
 import variables from "assets/variables";
 
-const Wrapper = css`
+const Wrapper = styled.div`
   ${mixins.KeyBox}
   display: flex;
   flex-direction: column;

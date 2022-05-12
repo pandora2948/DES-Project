@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
 import PlainTextWrapper from "./Wrapper/PlainTextWrapper";
-import KeyGenerator from "./Wrapper/KeyGenerator";
+import KeyWrapper from "./Wrapper/KeyWrapper";
 
 const TypeSlider = styled(Slider)`
   width: 90%;
@@ -30,7 +30,7 @@ const Body = () => {
   return (
     <TypeSlider {...settings}>
       <PlainTextWrapper finalKey={finalKey} />
-      <KeyGenerator setFinalKey={setFinalKey} />
+      <KeyWrapper setFinalKey={setFinalKey} />
     </TypeSlider>
   );
 };

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import InitialPermutation from "./InitialPermutation";
-import IPDivide from "./IPDivide";
-import PlainBitOutput from "./PlainBitOutput";
+import InitialPermutation from "./ProcessComponents/InitialPermutation";
+import IPDivide from "./ProcessComponents/IPDivide";
+import PlainBitOutput from "./ProcessComponents/PlainBitOutput";
 
 const Wrapper = styled.div``;
 const PlainTextResult = ({ plainText }) => {

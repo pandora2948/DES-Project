@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import mixins from "../../../../../assets/mixins";
+import mixins from "assets/mixins";
 
 const Output = styled.div`
   ${mixins.PlainTextBox}
