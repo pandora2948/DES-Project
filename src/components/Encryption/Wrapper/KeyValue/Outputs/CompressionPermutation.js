@@ -1,8 +1,10 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import mixins from "../../assets/mixins";
-import variables from "../../assets/variables";
+import { useCallback } from "react";
+import mixins from "assets/mixins";
+import variables from "assets/variables";
 
-const Wrapper = styled.div`
+const Wrapper = css`
   ${mixins.KeyBox}
   display: flex;
   flex-direction: column;
@@ -14,13 +16,7 @@ const Wrapper = styled.div`
 const CpTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  :nth-of-type(odd) {
-    margin: 4rem 0;
-  }
-
-  :last-of-type {
-    margin-bottom: 4rem;
-  }
+  margin: 4rem 0;
 
   td {
     text-align: center;
@@ -31,10 +27,8 @@ const CpTable = styled.table`
   }
 `;
 
-const CompressionPermutation = (props) => {
-  const { compressionPermutation } = props;
-
-  const createCells = () => {
+const CompressionPermutation = ({ compressionPermutation }) => {
+  const createCells = useCallback(() => {
     const table = [];
 
     for (let i = 0; i < 8; i += 1) {
@@ -62,7 +56,7 @@ const CompressionPermutation = (props) => {
     );
 
     return element;
-  };
+  }, [compressionPermutation]);
 
   return <Wrapper>{createCells()}</Wrapper>;
 };

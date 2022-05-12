@@ -1,6 +1,6 @@
 import styled from "@emotion/styled/macro";
-import mixins from "../../assets/mixins";
-import variables from "../../assets/variables";
+import mixins from "assets/mixins";
+import variables from "assets/variables";
 
 const InputWrapper = styled.div`
   ${mixins.PlainTextBox}

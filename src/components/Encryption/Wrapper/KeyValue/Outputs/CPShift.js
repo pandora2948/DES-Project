@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import mixins from "../../assets/mixins";
-import variables from "../../assets/variables";
+import mixins from "assets/mixins";
+import variables from "assets/variables";
 
 const Wrapper = styled.div`
+  margin: 5rem 0 0 0;
   display: flex;
   flex-direction: row;
-  margin-top: 10rem;
   justify-content: space-between;
 `;
 
@@ -39,26 +39,26 @@ const DivTable = styled.table`
   }
 `;
 
-const CPDivide = ({ CPDivided }) => {
-  const { leftCP, rightCP } = CPDivided;
+const createElement = (leftShiftedRounds, rightShiftedRounds) => {
+  const leftElement = [];
+  const rightElement = [];
 
-  const dividTable = () => {
+  for (let i = 0; i < 16; i += 1) {
     const leftCells = [];
     const rightCells = [];
-
-    for (let i = 0; i < 4; i += 1) {
+    for (let j = 0; j < 4; j += 1) {
       const leftRows = [];
       const rightRows = [];
 
-      for (let j = 0; j < 7; j += 1) {
+      for (let k = 0; k < 7; k += 1) {
         leftRows.push(
           <td key={`CP-D - td - ${Math.random().toString().slice(3)}`}>
-            {leftCP[i][j]}
+            {leftShiftedRounds[i][j][k]}
           </td>
         );
         rightRows.push(
           <td key={`CP-D - td - ${Math.random().toString().slice(3)}`}>
-            {rightCP[i][j]}
+            {rightShiftedRounds[i][j][k]}
           </td>
         );
       }
@@ -73,32 +73,37 @@ const CPDivide = ({ CPDivided }) => {
         </tr>
       );
     }
-    const leftTable = (
+
+    leftElement.push(
       <DivTable key={`CP-D - table - ${Math.random().toString().slice(3)}`}>
         <tbody key={`CP-D -  tbody - ${Math.random().toString().slice(3)}`}>
           {leftCells}
         </tbody>
       </DivTable>
     );
-    const rightTable = (
+    rightElement.push(
       <DivTable key={`CP-D - table - ${Math.random().toString().slice(3)}`}>
         <tbody key={`CP-D -  tbody - ${Math.random().toString().slice(3)}`}>
           {rightCells}
         </tbody>
       </DivTable>
     );
+  }
+  return { leftElement, rightElement };
+};
 
-    return { leftTable, rightTable };
-  };
-
-  const { leftTable, rightTable } = dividTable();
+const CPShift = ({ CPShifted: { leftShiftedRounds, rightShiftedRounds } }) => {
+  const { leftElement, rightElement } = createElement(
+    leftShiftedRounds,
+    rightShiftedRounds
+  );
 
   return (
     <Wrapper>
-      <Container>{leftTable}</Container>
-      <Container>{rightTable}</Container>
+      <Container>{leftElement}</Container>
+      <Container>{rightElement}</Container>
     </Wrapper>
   );
 };
 
-export default CPDivide;
+export default CPShift;

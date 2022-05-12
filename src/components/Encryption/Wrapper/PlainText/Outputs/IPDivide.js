@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import mixins from "../../assets/mixins";
-import variables from "../../assets/variables";
+import mixins from "../../../../../assets/mixins";
+import variables from "../../../../../assets/variables";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,6 +41,7 @@ const IPDivide = ({ ip }) => {
   const divideTable = () => {
     const leftSideTable = [];
     const rightSideTable = [];
+
     for (let k = 0; k < ip.length; k += 1) {
       const leftCells = [];
       const rightCells = [];

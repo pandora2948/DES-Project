@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useCallback } from "react";
-import mixins from "../../assets/mixins";
-import variables from "../../assets/variables";
+import mixins from "assets/mixins";
+import variables from "assets/variables";
 
 const Wrapper = styled.div`
   ${mixins.KeyBox}
@@ -119,17 +119,58 @@ const shiftCP = (leftCP, rightCP) => {
   return { leftShiftedRounds, rightShiftedRounds };
 };
 
+const generateFinalKeys = (lShifted, rShifted) => {
+  const CP = [
+    13, 16, 10, 23, 0, 4, 2, 27, 14, 5, 20, 9, 22, 18, 11, 3, 25, 7, 15, 6, 26,
+    19, 12, 1, 40, 51, 30, 36, 46, 54, 29, 39, 50, 44, 32, 47, 43, 48, 38, 55,
+    33, 52, 45, 41, 49, 35, 28, 31,
+  ];
+
+  const concatShiftedKeys = [];
+  for (let i = 0; i < 16; i += 1) {
+    concatShiftedKeys.push([...lShifted[i], ...rShifted[i]]);
+  }
+  const flatShiftedKeys = concatShiftedKeys.map((el) => el.flatMap((el) => el));
+
+  const finalKeys = [];
+
+  for (let i = 0; i < 16; i += 1) {
+    const round = [];
+    let index = 0;
+
+    for (let j = 0; j < 8; j += 1) {
+      const rows = [];
+
+      for (let k = 0; k < 6; k += 1) {
+        rows.push(flatShiftedKeys[i][CP[index]]);
+        index += 1;
+      }
+      round.push(rows);
+    }
+    finalKeys.push(round);
+  }
+
+  return { finalKeys };
+};
+
 const setKeyValues = (StrKey, setKeyValue) => {
   const keyBits = parseKeyBit(StrKey);
   const { leftCP, rightCP, compressionPermutation } =
     convertCompressionPermutation(keyBits);
   const { leftShiftedRounds, rightShiftedRounds } = shiftCP(leftCP, rightCP);
+  const { finalKeys } = generateFinalKeys(
+    leftShiftedRounds,
+    rightShiftedRounds
+  );
+
   let isEmpty;
+
   if (StrKey === "") {
     isEmpty = true;
   } else {
     isEmpty = false;
   }
+
   setKeyValue((prv) => {
     return {
       isEmpty,
@@ -140,6 +181,7 @@ const setKeyValues = (StrKey, setKeyValue) => {
       rightCP,
       leftShiftedRounds,
       rightShiftedRounds,
+      finalKeys,
     };
   });
 };

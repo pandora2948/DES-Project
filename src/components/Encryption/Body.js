@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import KeyGenerator from "./KeyGenerator";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import PlainTextWrapper from "./PlainTextWrapper";
+import { useState } from "react";
+import PlainTextWrapper from "./Wrapper/PlainTextWrapper";
+import KeyGenerator from "./Wrapper/KeyGenerator";
 
 const TypeSlider = styled(Slider)`
   width: 90%;
@@ -25,10 +26,11 @@ const settings = {
 };
 
 const Body = () => {
+  const [finalKey, setFinalKey] = useState("");
   return (
     <TypeSlider {...settings}>
-      <PlainTextWrapper />
-      <KeyGenerator />
+      <PlainTextWrapper finalKey={finalKey} />
+      <KeyGenerator setFinalKey={setFinalKey} />
     </TypeSlider>
   );
 };

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import InitialPermutation from "../Output/InitialPermutation";
-import IPDivide from "../Output/IPDivide";
-import PlainBitOutput from "../Output/PlainBitOutput";
+import InitialPermutation from "./InitialPermutation";
+import IPDivide from "./IPDivide";
+import PlainBitOutput from "./PlainBitOutput";
 
 const Wrapper = styled.div``;
 const PlainTextResult = ({ plainText }) => {
@@ -26,10 +26,12 @@ const PlainTextResult = ({ plainText }) => {
     const preInitialPermutation = [];
 
     const splitedCodes = codes.map((el) => el.split(""));
+
     for (let i = 0; i < ipLength; i += 1) {
       const table = splitedCodes.splice(0, 8);
       preInitialPermutation.push(table);
     }
+
     const initialPermutation = [];
     for (let k = 0; k < ipLength; k += 1) {
       const table = [];

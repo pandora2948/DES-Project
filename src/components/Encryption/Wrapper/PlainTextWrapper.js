@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import PlainTextInput from "../Input/PlainTextInput";
-import PlainTextResult from "./PlainTextResult";
+import PlainTextInput from "./PlainText/Inputs/PlainTextInput";
+import PlainTextResult from "./PlainText/Outputs/PlainTextResult";
 
 const Wrapper = styled.div`
   padding: 5rem;
@@ -18,7 +18,7 @@ const handleEmptyInput = (element, value) => {
   }
 };
 
-const PlainTextWrapper = () => {
+const PlainTextWrapper = ({ finalKey }) => {
   const [plainText, setPlainText] = useState("");
 
   return (

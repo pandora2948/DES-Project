@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import mixins from "../../assets/mixins";
-import variables from "../../assets/variables";
+import mixins from "assets/mixins";
+import variables from "assets/variables";
 
 const Wrapper = styled.div`
   ${mixins.KeyBox}
