@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import ExpensionPermutation from "./ProcessComponents/ExpensionPermutation";
 import InitialPermutation from "./ProcessComponents/InitialPermutation";
 import IPDivide from "./ProcessComponents/IPDivide";
 import PlainBitOutput from "./ProcessComponents/PlainBitOutput";
@@ -55,6 +56,7 @@ const PlainTextResult = ({ plainText }) => {
       <PlainBitOutput plainBit={plainBit} />
       <InitialPermutation ip={initialPermutation} />
       <IPDivide ip={initialPermutation} />
+      <ExpensionPermutation />
     </Wrapper>
   );
 };

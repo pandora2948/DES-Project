@@ -39,11 +39,13 @@ const DivTable = styled.table`
   }
 `;
 
-const createElement = (leftShiftedRounds, rightShiftedRounds) => {
+const createElement = (shiftedRounds) => {
+  const { leftShiftedRounds, rightShiftedRounds } = shiftedRounds;
   const leftElement = [];
   const rightElement = [];
 
   for (let i = 0; i < 16; i += 1) {
+    let count = 0;
     const leftCells = [];
     const rightCells = [];
     for (let j = 0; j < 4; j += 1) {
@@ -53,14 +55,15 @@ const createElement = (leftShiftedRounds, rightShiftedRounds) => {
       for (let k = 0; k < 7; k += 1) {
         leftRows.push(
           <td key={`CP-D - td - ${Math.random().toString().slice(3)}`}>
-            {leftShiftedRounds[i][j][k]}
+            {leftShiftedRounds[i][count]}
           </td>
         );
         rightRows.push(
           <td key={`CP-D - td - ${Math.random().toString().slice(3)}`}>
-            {rightShiftedRounds[i][j][k]}
+            {rightShiftedRounds[i][count]}
           </td>
         );
+        count += 1;
       }
       leftCells.push(
         <tr key={`CP-D - tr - ${Math.random().toString().slice(3)}`}>
@@ -92,11 +95,8 @@ const createElement = (leftShiftedRounds, rightShiftedRounds) => {
   return { leftElement, rightElement };
 };
 
-const CPShift = ({ CPShifted: { leftShiftedRounds, rightShiftedRounds } }) => {
-  const { leftElement, rightElement } = createElement(
-    leftShiftedRounds,
-    rightShiftedRounds
-  );
+const CPShift = ({ shiftedRounds }) => {
+  const { leftElement, rightElement } = createElement(shiftedRounds);
 
   return (
     <Wrapper>

@@ -29,17 +29,18 @@ const CpTable = styled.table`
 const CompressionPermutation = ({ compressionPermutation }) => {
   const createCells = useCallback(() => {
     const table = [];
-
+    let count = 0;
     for (let i = 0; i < 8; i += 1) {
       const rows = [];
 
       for (let j = 0; j < 7; j += 1) {
         const data = (
           <td key={`td - ${Math.random().toString().slice(3)}`}>
-            {compressionPermutation[i][j]}
+            {compressionPermutation[count]}
           </td>
         );
         rows.push(data);
+        count += 1;
       }
       table.push(
         <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>

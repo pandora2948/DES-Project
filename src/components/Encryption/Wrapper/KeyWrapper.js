@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import KeyInput from "./KeyValue/Inputs/KeyInput";
-import KeyOutput from "./KeyValue/Outputs/KeyResult";
+import KeyResult from "./KeyValue/Outputs/KeyResult";
 
 const Wrapper = styled.div`
   padding: 5rem;
@@ -11,15 +11,22 @@ const Wrapper = styled.div`
 `;
 
 const KeyWrapper = ({ setFinalKey }) => {
-  const [keyValue, setKeyValue] = useState({ isEmpty: true });
-  if (!keyValue.isEmpty) {
-    setFinalKey(keyValue.finalKeys);
-  }
+  const [keyValue, setKeyValue] = useState(() => {
+    return {
+      isEmpty: true,
+    };
+  });
+
+  const handleRener = () => {
+    setFinalKey(() => keyValue.finalKey);
+
+    return <KeyResult keyValue={keyValue} />;
+  };
 
   return (
     <Wrapper>
-      <KeyInput keyValue={keyValue} setKeyValue={setKeyValue} />
-      {keyValue.isEmpty ? null : <KeyOutput keyValue={keyValue} />}
+      <KeyInput setKeyValue={setKeyValue} setFinalKey={setFinalKey} />
+      {keyValue.isEmpty ? null : handleRener()}
     </Wrapper>
   );
 };

@@ -27,6 +27,7 @@ const settings = {
 
 const Body = () => {
   const [finalKey, setFinalKey] = useState("");
+
   return (
     <TypeSlider {...settings}>
       <PlainTextWrapper finalKey={finalKey} />

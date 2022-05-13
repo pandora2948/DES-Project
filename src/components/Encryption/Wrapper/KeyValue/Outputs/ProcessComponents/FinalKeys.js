@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
 import { useCallback } from "react";
 import variables from "assets/variables";
+import mixins from "assets/mixins";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  ${mixins.KeyBox}
+  margin: 4rem 0;
+  padding: 2rem;
+`;
 
 const CpTable = styled.table`
   width: 100%;
@@ -18,11 +23,12 @@ const CpTable = styled.table`
   }
 `;
 
-const FinalCPKeys = ({ finalKeys }) => {
+const FinalKeys = ({ finalKeys }) => {
   const createCells = useCallback(() => {
     const tables = [];
 
     for (let i = 0; i < 16; i += 1) {
+      let count = 0;
       const round = [];
 
       for (let j = 0; j < 8; j += 1) {
@@ -31,10 +37,11 @@ const FinalCPKeys = ({ finalKeys }) => {
         for (let k = 0; k < 6; k += 1) {
           const data = (
             <td key={`td - ${Math.random().toString().slice(3)}`}>
-              {finalKeys[i][j][k]}
+              {finalKeys[i][count]}
             </td>
           );
           rows.push(data);
+          count += 1;
         }
         round.push(
           <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
@@ -56,4 +63,4 @@ const FinalCPKeys = ({ finalKeys }) => {
   return <Wrapper>{createCells()}</Wrapper>;
 };
 
-export default FinalCPKeys;
+export default FinalKeys;
