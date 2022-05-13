@@ -3,7 +3,6 @@ import mixins from "assets/mixins";
 import variables from "assets/variables";
 
 const Wrapper = styled.div`
-  margin: 5rem 0 0 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -11,6 +10,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   ${mixins.KeyBox}
+  padding: 1rem 2rem;
   width: 45%;
   display: flex;
   flex-direction: column;
@@ -19,16 +19,9 @@ const Container = styled.div`
 `;
 
 const DivTable = styled.table`
-  width: 80%;
+  margin: 1rem 0;
+  width: 100%;
   border-collapse: collapse;
-
-  :nth-of-type(odd) {
-    margin: 4rem 0;
-  }
-
-  :last-of-type {
-    margin-bottom: 4rem;
-  }
 
   td {
     text-align: center;

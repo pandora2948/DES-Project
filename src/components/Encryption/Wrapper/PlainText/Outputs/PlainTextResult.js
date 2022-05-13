@@ -4,7 +4,14 @@ import InitialPermutation from "./ProcessComponents/InitialPermutation";
 import IPDivide from "./ProcessComponents/IPDivide";
 import PlainBitOutput from "./ProcessComponents/PlainBitOutput";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  > div {
+    margin: 2rem 0;
+  }
+`;
 const PlainTextResult = ({ plainText }) => {
   const toPlainBit = (plainText) => {
     let length = plainText.length;

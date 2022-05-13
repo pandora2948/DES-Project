@@ -4,13 +4,13 @@ import KeyInput from "./KeyValue/Inputs/KeyInput";
 import KeyResult from "./KeyValue/Outputs/KeyResult";
 
 const Wrapper = styled.div`
-  padding: 5rem;
+  padding: 3rem;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
 `;
 
-const KeyWrapper = ({ setFinalKey }) => {
+const KeyWrapper = ({ setEncryptionValue }) => {
   const [keyValue, setKeyValue] = useState(() => {
     return {
       isEmpty: true,
@@ -18,14 +18,14 @@ const KeyWrapper = ({ setFinalKey }) => {
   });
 
   const handleRener = () => {
-    setFinalKey(() => keyValue.finalKey);
+    setEncryptionValue(() => keyValue.finalKey);
 
     return <KeyResult keyValue={keyValue} />;
   };
 
   return (
     <Wrapper>
-      <KeyInput setKeyValue={setKeyValue} setFinalKey={setFinalKey} />
+      <KeyInput setKeyValue={setKeyValue} />
       {keyValue.isEmpty ? null : handleRener()}
     </Wrapper>
   );

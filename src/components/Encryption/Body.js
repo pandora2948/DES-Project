@@ -6,9 +6,13 @@ import { useState } from "react";
 import PlainTextWrapper from "./Wrapper/PlainTextWrapper";
 import KeyWrapper from "./Wrapper/KeyWrapper";
 
-const TypeSlider = styled(Slider)`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 90%;
+`;
 
+const TypeSlider = styled(Slider)`
   .slick-dots button {
     &::before {
       color: white !important ;
@@ -26,13 +30,15 @@ const settings = {
 };
 
 const Body = () => {
-  const [finalKey, setFinalKey] = useState("");
+  const [encryptionValue, setEncryptionValue] = useState("");
 
   return (
-    <TypeSlider {...settings}>
-      <PlainTextWrapper finalKey={finalKey} />
-      <KeyWrapper setFinalKey={setFinalKey} />
-    </TypeSlider>
+    <Wrapper>
+      <TypeSlider {...settings}>
+        <PlainTextWrapper />
+        <KeyWrapper setEncryptionValue={setEncryptionValue} />
+      </TypeSlider>
+    </Wrapper>
   );
 };
 

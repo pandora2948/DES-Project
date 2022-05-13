@@ -4,7 +4,15 @@ import CPShift from "./ProcessComponents/CPShift";
 import FinalKeys from "./ProcessComponents/FinalKeys";
 import KeyBits from "./ProcessComponents/KeyBits";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+
+  > div {
+    margin: 2rem 0;
+  }
+`;
 
 const KeyResult = ({
   keyValue: { keyBits, compressionPermutation, shiftedRounds, finalKeys },

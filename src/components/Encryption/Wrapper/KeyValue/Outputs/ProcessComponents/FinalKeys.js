@@ -5,14 +5,15 @@ import mixins from "assets/mixins";
 
 const Wrapper = styled.div`
   ${mixins.KeyBox}
-  margin: 4rem 0;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
 `;
 
 const CpTable = styled.table`
+  margin: 1rem 0;
   width: 100%;
   border-collapse: collapse;
-  margin: 4rem 0;
 
   td {
     text-align: center;

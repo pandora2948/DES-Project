@@ -16,20 +16,9 @@ const InputWrapper = styled.div`
   }
 
   textarea {
-    border-radius: 15px;
-    font-family: inherit;
-    background-color: ${variables.colors.mainBlackColor};
-    padding: 0.5rem;
-    outline: none;
-    border: 2px solid ${variables.colors.subColor};
-    box-shadow: 10px 10px 10px 5px #222a38;
-    width: 90%;
-    min-height: 6rem;
-    color: ${variables.colors.subColor};
-    font-size: 1.5rem;
-    line-height: 2rem;
-    overflow: hidden;
-    resize: none;
+    ${mixins.TextBoxStyle}
+    color: ${variables.colors.subWhiteColor};
+    border-color: ${variables.colors.subWhiteColor};
   }
 `;
 

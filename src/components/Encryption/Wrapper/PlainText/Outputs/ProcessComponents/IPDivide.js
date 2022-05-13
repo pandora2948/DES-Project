@@ -5,12 +5,12 @@ import variables from "assets/variables";
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 10rem;
 `;
 
 const Container = styled.div`
   ${mixins.PlainTextBox}
   width: 45%;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,16 +18,9 @@ const Container = styled.div`
 `;
 
 const DivTable = styled.table`
-  width: 80%;
+  width: 100%;
+  margin: 1rem 0;
   border-collapse: collapse;
-
-  :nth-of-type(odd) {
-    margin: 4rem 0;
-  }
-
-  :last-of-type {
-    margin-bottom: 4rem;
-  }
 
   td {
     text-align: center;

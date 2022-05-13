@@ -3,7 +3,6 @@ import mixins from "assets/mixins";
 
 const Output = styled.div`
   ${mixins.PlainTextBox}
-  margin: 5rem 0 0 0;
   padding: 0.5rem;
   text-align: center;
   display: grid;

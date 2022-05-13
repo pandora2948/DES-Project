@@ -5,17 +5,15 @@ import variables from "assets/variables";
 
 const Wrapper = styled.div`
   ${mixins.KeyBox}
+  padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 5rem;
-  margin-top: 8rem;
 `;
 
 const CpTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin: 4rem 0;
 
   td {
     text-align: center;
