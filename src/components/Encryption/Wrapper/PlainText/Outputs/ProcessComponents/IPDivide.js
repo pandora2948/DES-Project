@@ -18,78 +18,86 @@ const Container = styled.div`
 `;
 
 const DivTable = styled.table`
-  width: 100%;
-  margin: 1rem 0;
-  border-collapse: collapse;
+  ${mixins.TableStyle};
 
   td {
-    text-align: center;
-    font-weight: 700;
-    padding: 1px 5px;
-    border: 1px solid ${variables.colors.subColor};
+    border-color: ${variables.colors.subWhiteColor};
   }
 `;
 
-const IPDivide = ({ ip }) => {
+const IPDivide = ({
+  dividedPermutation: { leftPermutations, rightPermutations },
+}) => {
   const divideTable = () => {
-    const leftSideTable = [];
-    const rightSideTable = [];
+    const leftElement = [];
+    const rightElement = [];
 
-    for (let k = 0; k < ip.length; k += 1) {
-      const leftCells = [];
-      const rightCells = [];
-      for (let i = 0; i < 8; i += 1) {
-        const rows = [];
-        for (let j = 0; j < 8; j += 1) {
-          const data = (
-            <td key={`IP-D - td - ${Math.random().toString().slice(3)}`}>
-              {ip[k][i][j]}
+    for (let i = 0; i < leftPermutations.length; i += 1) {
+      let count = 0;
+      const leftTable = [];
+      const rightTable = [];
+
+      for (let j = 0; j < 4; j += 1) {
+        const leftRow = [];
+        const rightRow = [];
+
+        for (let k = 0; k < 8; k += 1) {
+          const leftData = (
+            <td key={`IP - D - td - ${Math.random().toString().slice(3)}`}>
+              {leftPermutations[i][count]}
             </td>
           );
-          rows.push(data);
+
+          const rightData = (
+            <td key={`IP - D - td - ${Math.random().toString().slice(3)}`}>
+              {rightPermutations[i][count]}
+            </td>
+          );
+
+          leftRow.push(leftData);
+          rightRow.push(rightData);
+          count += 1;
         }
 
-        if (i < 4) {
-          leftCells.push(
-            <tr key={`IP-D - tr - ${Math.random().toString().slice(3)}`}>
-              {rows}
-            </tr>
-          );
-        } else {
-          rightCells.push(
-            <tr key={`IP-d - tr - ${Math.random().toString().slice(3)}`}>
-              {rows}
-            </tr>
-          );
-        }
+        leftTable.push(
+          <tr key={`IP - tr - ${Math.random().toString().slice(3)}`}>
+            {leftRow}
+          </tr>
+        );
+
+        rightTable.push(
+          <tr key={`IP - tr - ${Math.random().toString().slice(3)}`}>
+            {rightRow}
+          </tr>
+        );
       }
 
-      leftSideTable.push(
-        <DivTable key={`IP-D - table - ${Math.random().toString().slice(3)}`}>
-          <tbody key={`IP-D -  tbody - ${Math.random().toString().slice(3)}`}>
-            {leftCells}
+      leftElement.push(
+        <DivTable key={`IP - D - table - ${Math.random().toString().slice(3)}`}>
+          <tbody key={`IP - D -  tbody - ${Math.random().toString().slice(3)}`}>
+            {leftTable}
           </tbody>
         </DivTable>
       );
 
-      rightSideTable.push(
-        <DivTable key={`IP-D - table - ${Math.random().toString().slice(3)}`}>
-          <tbody key={`IP-D -  tbody - ${Math.random().toString().slice(3)}`}>
-            {rightCells}
+      rightElement.push(
+        <DivTable key={`IP - D - table - ${Math.random().toString().slice(3)}`}>
+          <tbody key={`IP - D -  tbody - ${Math.random().toString().slice(3)}`}>
+            {rightTable}
           </tbody>
         </DivTable>
       );
     }
 
-    return { leftSideTable, rightSideTable };
+    return { leftElement, rightElement };
   };
 
-  const { leftSideTable, rightSideTable } = divideTable();
+  const { leftElement, rightElement } = divideTable();
 
   return (
     <Wrapper>
-      <Container>{leftSideTable}</Container>
-      <Container>{rightSideTable}</Container>
+      <Container>{leftElement}</Container>
+      <Container>{rightElement}</Container>
     </Wrapper>
   );
 };

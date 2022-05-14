@@ -11,16 +11,11 @@ const Wrapper = styled.div`
 `;
 
 const CpTable = styled.table`
-  margin: 1rem 0;
-  width: 100%;
-  border-collapse: collapse;
+  ${mixins.TableStyle}
 
   td {
-    text-align: center;
-    font-weight: 700;
-    padding: 1px 5px;
     color: ${variables.colors.keyColorBrightRed};
-    border: 1px solid ${variables.colors.keyColorRed};
+    border-color: ${variables.colors.keyColorRed};
   }
 `;
 

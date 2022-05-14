@@ -9,6 +9,7 @@ const mixins = {
     box-shadow: 15px 5px 30px -20px ${variables.colors.subWhiteColor};
     padding: 1rem 0;
   `,
+
   KeyBox: css`
     border: 2px solid ${variables.colors.keyColorRed};
     border-radius: 15px;
@@ -16,6 +17,7 @@ const mixins = {
     box-shadow: 10px 10px 20px -5px ${variables.colors.keyColorRed};
     padding: 1rem 0;
   `,
+
   TextBoxStyle: css`
     width: 90%;
     min-height: 6rem;
@@ -31,6 +33,19 @@ const mixins = {
     font-size: 1.5rem;
     overflow: hidden;
     resize: none;
+  `,
+
+  TableStyle: css`
+    width: 100%;
+    margin: 1rem 0;
+    border-collapse: collapse;
+
+    td {
+      text-align: center;
+      font-weight: 700;
+      padding: 1px 5px;
+      border: 1px solid white;
+    }
   `,
 };
 

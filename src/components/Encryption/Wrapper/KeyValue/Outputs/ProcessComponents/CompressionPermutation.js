@@ -5,22 +5,18 @@ import variables from "assets/variables";
 
 const Wrapper = styled.div`
   ${mixins.KeyBox}
-  padding: 2rem 2rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const CpTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
+  ${mixins.TableStyle}
 
   td {
-    text-align: center;
-    font-weight: 700;
-    padding: 1px 5px;
     color: ${variables.colors.keyColorBrightRed};
-    border: 1px solid ${variables.colors.keyColorRed};
+    border-color: ${variables.colors.keyColorRed};
   }
 `;
 

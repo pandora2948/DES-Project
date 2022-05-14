@@ -19,16 +19,11 @@ const Container = styled.div`
 `;
 
 const DivTable = styled.table`
-  margin: 1rem 0;
-  width: 100%;
-  border-collapse: collapse;
+  ${mixins.TableStyle}
 
   td {
-    text-align: center;
-    font-weight: 700;
-    padding: 1px 5px;
-    border: 1px solid ${variables.colors.keyColorRed};
     color: ${variables.colors.keyColorBrightRed};
+    border-color: ${variables.colors.keyColorRed};
   }
 `;
 
