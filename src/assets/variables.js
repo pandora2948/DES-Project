@@ -5,6 +5,7 @@ const variables = {
     subWhiteColor: "#f0edcc",
     keyColorRed: "#8a0000",
     keyColorBrightRed: "#f04e4e",
+    encryptedBlueColor: "#23B2F5",
   },
 };
 

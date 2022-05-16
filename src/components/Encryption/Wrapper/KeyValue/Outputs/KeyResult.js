@@ -11,11 +11,7 @@ const { Panel } = Collapse;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
-
-  > div {
-    margin: 2rem 0;
-  }
+  margin: 4rem 0;
 `;
 
 const StyledCollapse = styled(Collapse)`

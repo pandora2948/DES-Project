@@ -3,19 +3,27 @@ import variables from "./variables";
 
 const mixins = {
   PlainTextBox: css`
-    border: 2px solid ${variables.colors.subWhiteColor};
+    padding: 1rem 0;
     border-radius: 15px;
+    border: 2px solid ${variables.colors.subWhiteColor};
     background-color: ${variables.colors.mainBlueColor};
     box-shadow: 15px 5px 30px -20px ${variables.colors.subWhiteColor};
-    padding: 1rem 0;
   `,
 
   KeyBox: css`
-    border: 2px solid ${variables.colors.keyColorRed};
+    padding: 1rem 0;
     border-radius: 15px;
+    border: 2px solid ${variables.colors.keyColorRed};
     background-color: ${variables.colors.mainBlueColor};
     box-shadow: 10px 10px 20px -5px ${variables.colors.keyColorRed};
+  `,
+
+  EncryptedBox: css`
     padding: 1rem 0;
+    border-radius: 15px;
+    border: 2px solid ${variables.colors.mainBlueColor};
+    background-color: ${variables.colors.mainBlueColor};
+    box-shadow: 10px 10px 20px -5px ${variables.colors.mainBlueColor};
   `,
 
   TextBoxStyle: css`

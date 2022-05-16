@@ -1,18 +1,9 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
 import KeyInput from "./KeyValue/Inputs/KeyInput";
 import KeyResult from "./KeyValue/Outputs/KeyResult";
 
-const KeyWrapper = ({ visibility, setEncryptionValue }) => {
-  const [keyValue, setKeyValue] = useState(() => {
-    return {
-      isEmpty: true,
-    };
-  });
-
+const KeyWrapper = ({ keyValue, setKeyValue, visibility }) => {
   const handleRener = () => {
-    setEncryptionValue(() => keyValue.finalKey);
-
     return <KeyResult keyValue={keyValue} />;
   };
 
@@ -21,8 +12,6 @@ const KeyWrapper = ({ visibility, setEncryptionValue }) => {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
-    width: 100%;
-    position: absolute;
     ${visibility}
   `;
 

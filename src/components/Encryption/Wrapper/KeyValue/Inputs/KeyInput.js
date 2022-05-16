@@ -101,29 +101,30 @@ const generateFinalKeys = ({ leftShiftedRounds, rightShiftedRounds }) => {
 };
 
 const setKeyValues = (StrKey, setKeyValue) => {
-  const keyBits = parseKeyBit(StrKey);
-  const compressionPermutation = HandleFirstCompressionPermutation(keyBits);
-  const shiftedRounds = shiftCP(compressionPermutation);
-  const finalKeys = generateFinalKeys(shiftedRounds);
-
-  let isEmpty;
-
   if (StrKey === "") {
-    isEmpty = true;
+    const isEmpty = true;
+    setKeyValue(() => {
+      return {
+        isEmpty,
+      };
+    });
   } else {
-    isEmpty = false;
-  }
+    const isEmpty = false;
+    const keyBits = parseKeyBit(StrKey);
+    const compressionPermutation = HandleFirstCompressionPermutation(keyBits);
+    const shiftedRounds = shiftCP(compressionPermutation);
+    const finalKeys = generateFinalKeys(shiftedRounds);
 
-  setKeyValue((prv) => {
-    return {
-      ...prv,
-      isEmpty,
-      keyBits,
-      compressionPermutation,
-      shiftedRounds,
-      finalKeys,
-    };
-  });
+    setKeyValue(() => {
+      return {
+        isEmpty,
+        keyBits,
+        compressionPermutation,
+        shiftedRounds,
+        finalKeys,
+      };
+    });
+  }
 };
 
 const KeyInput = ({ setKeyValue }) => {
