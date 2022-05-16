@@ -90,7 +90,7 @@ const EncryptionWrapper = ({
 
   return (
     <StyledCollapse accordion bordered={false}>
-      <Panel header="XOR First Round">
+      <Panel header="XOR KEY">
         <KeyXOR xor={xor} />
       </Panel>
       <Panel header="Substitution Box">
