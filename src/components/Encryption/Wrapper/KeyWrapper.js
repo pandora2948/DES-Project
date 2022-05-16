@@ -3,14 +3,7 @@ import { useState } from "react";
 import KeyInput from "./KeyValue/Inputs/KeyInput";
 import KeyResult from "./KeyValue/Outputs/KeyResult";
 
-const Wrapper = styled.div`
-  padding: 3rem;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-`;
-
-const KeyWrapper = ({ setEncryptionValue }) => {
+const KeyWrapper = ({ visibility, setEncryptionValue }) => {
   const [keyValue, setKeyValue] = useState(() => {
     return {
       isEmpty: true,
@@ -22,6 +15,16 @@ const KeyWrapper = ({ setEncryptionValue }) => {
 
     return <KeyResult keyValue={keyValue} />;
   };
+
+  const Wrapper = styled.div`
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    ${visibility}
+  `;
 
   return (
     <Wrapper>

@@ -1,32 +1,30 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import variables from "assets/variables";
 import { useState } from "react";
 import PlainTextInput from "./PlainText/Inputs/PlainTextInput";
 import PlainTextResult from "./PlainText/Outputs/PlainTextResult";
 
-const Wrapper = styled.div`
-  color: ${variables.colors.subWhiteColor};
-  padding: 3rem;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-`;
+const PlainTextWrapper = ({ visibility }) => {
+  const [plainText, setPlainText] = useState({ isEmpty: true });
 
-const handleEmptyInput = (element, value) => {
-  if (value === "") {
-    return;
-  } else {
-    return element;
-  }
-};
+  const Wrapper = styled.div`
+    color: ${variables.colors.subWhiteColor};
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    ${visibility};
+  `;
 
-const PlainTextWrapper = () => {
-  const [plainText, setPlainText] = useState("");
+  console.log(plainText);
 
   return (
     <Wrapper>
       <PlainTextInput setPlainText={setPlainText} />
-      {handleEmptyInput(<PlainTextResult plainText={plainText} />, plainText)}
+      {plainText.isEmpty ? null : <PlainTextResult plainText={plainText} />}
     </Wrapper>
   );
 };

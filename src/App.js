@@ -16,7 +16,6 @@ const Wrapper = styled.div`
     padding: 1.5rem 0 1.5rem 1rem;
     display: block;
     border-bottom: 2px solid ${variables.colors.subWhiteColor};
-    margin-bottom: 9rem;
     background-color: ${variables.colors.mainBlueColor};
   }
 `;
