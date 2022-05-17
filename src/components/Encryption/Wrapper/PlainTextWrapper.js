@@ -16,7 +16,7 @@ const PlainTextWrapper = ({ plainText, setPlainText, visibility }) => {
   return (
     <Wrapper visibility={visibility}>
       <PlainTextInput setPlainText={setPlainText} />
-      {plainText.isEmpty ? null : <PlainTextResult plainText={plainText} />}
+      {plainText.isEmpty && <PlainTextResult plainText={plainText} />}
     </Wrapper>
   );
 };
