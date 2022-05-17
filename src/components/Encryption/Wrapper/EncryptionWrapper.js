@@ -90,16 +90,16 @@ const EncryptionWrapper = ({
 
   return (
     <StyledCollapse accordion bordered={false}>
-      <Panel header="XOR KEY">
+      <Panel header="XOR KEY" key="xor_panel">
         <KeyXOR xor={xor} />
       </Panel>
-      <Panel header="Substitution Box">
+      <Panel header="Substitution Box" key="sub_box">
         <SubstitutionBox sBox={sBox} />
       </Panel>
-      <Panel header="Permutation Box">
+      <Panel header="Permutation Box" key="permutation_box">
         <PermutationBox pBox={pBox} />
       </Panel>
-      <Panel header="FirstRound Result">
+      <Panel header="FirstRound Result" key="first_round_result">
         <FirstRoundResult firstRound={firstRound} />
       </Panel>
     </StyledCollapse>
