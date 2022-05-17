@@ -3,18 +3,18 @@ import variables from "assets/variables";
 import PlainTextInput from "./PlainText/Inputs/PlainTextInput";
 import PlainTextResult from "./PlainText/Outputs/PlainTextResult";
 
-const PlainTextWrapper = ({ plainText, setPlainText, visibility }) => {
-  const Wrapper = styled.div`
+const Wrapper = styled.div`
     color: ${variables.colors.subWhiteColor};
     margin-top: 2rem;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
-    ${visibility};
+    ${({ visibility }) => visibility};
   `;
 
+const PlainTextWrapper = ({ plainText, setPlainText, visibility }) => {
   return (
-    <Wrapper>
+    <Wrapper visibility={visibility}>
       <PlainTextInput setPlainText={setPlainText} />
       {plainText.isEmpty ? null : <PlainTextResult plainText={plainText} />}
     </Wrapper>
