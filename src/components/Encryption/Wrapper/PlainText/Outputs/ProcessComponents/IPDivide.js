@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import mixins from "assets/mixins";
 import variables from "assets/variables";
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -93,7 +93,10 @@ const IPDivide = ({
     return { leftElement, rightElement };
   }, [leftPermutations, rightPermutations]);
 
-  const { leftElement, rightElement } = useMemo(() => divideTable(), [divideTable()]);
+  const { leftElement, rightElement } = useMemo(
+    () => divideTable(),
+    [divideTable]
+  );
 
   return (
     <Wrapper>

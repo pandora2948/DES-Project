@@ -30,7 +30,7 @@ const handleXOR = (expensionPermutation, finalKeys) => {
   return firstRound;
 };
 
-const handlesubstitution = (xor) => {
+const handleSubstitution = (xor) => {
   const xorBits = [...xor];
   const substitution = [];
 
@@ -59,14 +59,6 @@ const handlesubstitution = (xor) => {
   return sBox;
 };
 
-const handlePermutationXor = (pBox, leftPermutations) => {
-  const exclusiveOr = [];
-  for (let i = 0; i < 32; i += 1) {
-    exclusiveOr.push(pBox[i] ^ leftPermutations[0][i]);
-  }
-  return exclusiveOr;
-};
-
 const handlePermutationBox = (sBox) => {
   const pBox = [];
   for (let index of permutationBox) {
@@ -74,6 +66,14 @@ const handlePermutationBox = (sBox) => {
   }
 
   return pBox;
+};
+
+const handlePermutationXor = (pBox, leftPermutations) => {
+  const exclusiveOr = [];
+  for (let i = 0; i < 32; i += 1) {
+    exclusiveOr.push(pBox[i] ^ leftPermutations[0][i]);
+  }
+  return exclusiveOr;
 };
 
 const EncryptionWrapper = ({
@@ -84,7 +84,7 @@ const EncryptionWrapper = ({
   keyValue: { finalKeys },
 }) => {
   const xor = handleXOR(expensionPermutation, finalKeys);
-  const sBox = handlesubstitution(xor);
+  const sBox = handleSubstitution(xor);
   const pBox = handlePermutationBox(sBox);
   const firstRound = handlePermutationXor(pBox, leftPermutations);
 
