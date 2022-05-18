@@ -1,6 +1,7 @@
 import styled from "@emotion/styled/macro";
 import mixins from "assets/mixins";
 import variables from "assets/variables";
+import { useCallback } from 'react';
 
 const { IP, EP } = require("assets/transitionArrays.json");
 
@@ -98,7 +99,7 @@ const toCodes = (input) => {
 };
 
 const PlainTextInput = ({ setPlainText }) => {
-  const handleInputText = (e) => {
+  const handleInputText = useCallback((e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
       const { target } = e;
@@ -107,7 +108,7 @@ const PlainTextInput = ({ setPlainText }) => {
         return { ...data };
       });
     }
-  };
+  }, [setPlainText]);
 
   return (
     <InputWrapper>
