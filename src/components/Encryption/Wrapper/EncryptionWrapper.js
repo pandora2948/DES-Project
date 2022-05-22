@@ -10,7 +10,13 @@ const {
   substitutionsTable,
   permutationBox,
 } = require("assets/transitionArrays.json");
+
 const { Panel } = Collapse;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const StyledCollapse = styled(Collapse)`
   background-color: ${variables.colors.mainBlueColor};
@@ -89,20 +95,22 @@ const EncryptionWrapper = ({
   const firstRound = handlePermutationXor(pBox, leftPermutations);
 
   return (
-    <StyledCollapse accordion bordered={false}>
-      <Panel header="XOR KEY" key="xor_panel">
-        <KeyXOR xor={xor} />
-      </Panel>
-      <Panel header="Substitution Box" key="sub_box">
-        <SubstitutionBox sBox={sBox} />
-      </Panel>
-      <Panel header="Permutation Box" key="permutation_box">
-        <PermutationBox pBox={pBox} />
-      </Panel>
-      <Panel header="FirstRound Result" key="first_round_result">
-        <FirstRoundResult firstRound={firstRound} />
-      </Panel>
-    </StyledCollapse>
+    <Wrapper>
+      <StyledCollapse accordion bordered={false}>
+        <Panel header="XOR KEY" key="xor_panel">
+          <KeyXOR xor={xor} />
+        </Panel>
+        <Panel header="Substitution Box" key="sub_box">
+          <SubstitutionBox sBox={sBox} />
+        </Panel>
+        <Panel header="Permutation Box" key="permutation_box">
+          <PermutationBox pBox={pBox} />
+        </Panel>
+        <Panel header="FirstRound Result" key="first_round_result">
+          <FirstRoundResult firstRound={firstRound} />
+        </Panel>
+      </StyledCollapse>
+    </Wrapper>
   );
 };
 
