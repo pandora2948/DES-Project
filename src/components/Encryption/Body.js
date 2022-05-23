@@ -79,7 +79,7 @@ const Body = () => {
           visibility={inputType === "keyValue" ? visibleStyle : invisibleStyle}
         />
       </Container>
-      {plainText.isEmpty || keyValue.isEmpty ? null : (
+      {!plainText.isEmpty && !keyValue.isEmpty && (
         <EncryptionWrapper keyValue={keyValue} plainText={plainText} />
       )}
     </Wrapper>
