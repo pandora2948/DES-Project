@@ -19,7 +19,7 @@ const FinalRoundTable = styled.table`
   }
 `;
 
-const FinalRoundResult = ({ FPResult }) => {
+const EncryptedValue = ({ FPResult }) => {
   const createCells = () => {
     let count = 0;
     const table = [];
@@ -55,4 +55,4 @@ const FinalRoundResult = ({ FPResult }) => {
   return <Wrapper>{createCells()}</Wrapper>;
 };
 
-export default FinalRoundResult;
+export default EncryptedValue;

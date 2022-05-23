@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { Collapse } from "antd";
 import variables from "assets/variables";
-import FinalRoundResult from "./FinalRound/FinalRoundResult";
-import FirstRoundResult from "./FirstRound/FirstRoundResult";
-import KeyXOR from "./FirstRound/KeyXOR";
-import PermutationBox from "./FirstRound/PermutationBox";
-import SubstitutionBox from "./FirstRound/SubstitutionBox";
+import EachRoundResult from "./Rounds/EachRoundResult";
+import EncryptedValue from "./Rounds/EncryptedValue";
+import KeyXOR from "./Rounds/KeyXOR";
+import PermutationBox from "./Rounds/PermutationBox";
+import SubstitutionBox from "./Rounds/SubstitutionBox";
 
 const { EP, finalPermutationTable } = require("assets/transitionArrays.json");
 
@@ -31,11 +31,11 @@ const StyledCollapse = styled(Collapse)`
   }
 `;
 
-const handleXOR = (expensionPermutation, finalKeys, index = 0) => {
+const handleXOR = (expensionPermutation, finalKeys) => {
   const exclusiveRound = [];
 
   for (let i = 0; i < 48; i += 1) {
-    exclusiveRound.push(expensionPermutation[i] ^ finalKeys[index][i]);
+    exclusiveRound.push(expensionPermutation[i] ^ finalKeys[i]);
   }
 
   return exclusiveRound;
@@ -82,38 +82,49 @@ const handlePermutationBox = (sBox) => {
 const handlePermutationXor = (pBox, leftPermutations) => {
   const exclusiveOr = [];
   for (let i = 0; i < 32; i += 1) {
-    exclusiveOr.push(pBox[i] ^ leftPermutations[0][i]);
+    exclusiveOr.push(pBox[i] ^ leftPermutations[i]);
   }
   return exclusiveOr;
 };
 
-const resultRoundHandler = (leftBlock, rightBlock, finalKeys, round = 1) => {
-  const prvBlocks = { leftBlock, rightBlock };
-  const eachResult = {};
+const roundHandler = (leftBlock, rightBlock, finalKeys) => {
+  const blocks = { leftBlock: [leftBlock], rightBlock: [rightBlock] };
+  const xorRounds = [];
+  const sBoxRounds = [];
+  const pBoxRounds = [];
 
-  for (let i = 0; i < round; i += 1) {
+  for (let i = 0; i < 16; i += 1) {
     const expensionPermutation = [];
 
     for (let index of EP) {
-      expensionPermutation.push(prvBlocks.rightBlock[index]);
+      expensionPermutation.push(blocks.rightBlock[i][index]);
     }
 
-    const xor = handleXOR(expensionPermutation, finalKeys, i);
+    const xor = handleXOR(expensionPermutation, finalKeys[i]);
     const sBox = handleSubstitution(xor);
     const pBox = handlePermutationBox(sBox);
-    const roundResult = handlePermutationXor(pBox, prvBlocks.leftBlock);
-    eachResult.xor = xor;
-    eachResult.sBox = sBox;
-    eachResult.pBox = pBox;
-    prvBlocks.leftBlock = prvBlocks.rightBlock;
-    prvBlocks.rightBlock = roundResult;
+    const roundResult = handlePermutationXor(pBox, blocks.leftBlock[i]);
+    xorRounds.push(xor);
+    sBoxRounds.push(sBox);
+    pBoxRounds.push(pBox);
+    if (i === 15) {
+      blocks.leftBlock.push(roundResult);
+      blocks.rightBlock.push(blocks.rightBlock[i]);
+    } else {
+      blocks.leftBlock.push(blocks.rightBlock[i]);
+      blocks.rightBlock.push(roundResult);
+    }
   }
+  const eachResult = {
+    xor: xorRounds[0],
+    sBox: sBoxRounds[0],
+    pBox: pBoxRounds[0],
+  };
 
-  return { eachResult, prvBlocks };
+  return { eachResult, ...blocks };
 };
 
-const handleFinalPermutation = (finalBlock) => {
-  const { leftBlock, rightBlock } = finalBlock;
+const handleFinalPermutation = (leftBlock, rightBlock) => {
   const preFinalPermutation = [...leftBlock, ...rightBlock];
   const FP = [];
 
@@ -126,24 +137,17 @@ const handleFinalPermutation = (finalBlock) => {
 
 const EncryptionWrapper = ({
   plainText: {
-    expensionPermutation,
     dividedPermutation: { leftPermutations, rightPermutations },
   },
   keyValue: { finalKeys },
 }) => {
   const {
     eachResult: { xor, sBox, pBox },
-    prvBlocks: { rightBlock: firstRound },
-  } = resultRoundHandler(leftPermutations, rightPermutations, finalKeys);
+    leftBlock,
+    rightBlock,
+  } = roundHandler(leftPermutations[0], rightPermutations[0], finalKeys);
 
-  const { prvBlocks: finalRoundBlocks } = resultRoundHandler(
-    leftPermutations,
-    rightPermutations,
-    finalKeys,
-    16
-  );
-
-  const FPResult = handleFinalPermutation(finalRoundBlocks);
+  const FPResult = handleFinalPermutation(leftBlock[16], rightBlock[16]);
 
   return (
     <Wrapper>
@@ -157,11 +161,11 @@ const EncryptionWrapper = ({
         <Panel header="Permutation Box" key="permutation_box">
           <PermutationBox pBox={pBox} />
         </Panel>
-        <Panel header="FirstRound Result" key="first_round_result">
-          <FirstRoundResult firstRound={firstRound} />
+        <Panel header="Each Round Result" key="first_round_result">
+          <EachRoundResult firstRound={(leftBlock[1], rightBlock[1])} />
         </Panel>
         <Panel header="LastRound Result" key="last_round_result">
-          <FinalRoundResult FPResult={FPResult} />
+          <EncryptedValue FPResult={FPResult} />
         </Panel>
       </StyledCollapse>
     </Wrapper>

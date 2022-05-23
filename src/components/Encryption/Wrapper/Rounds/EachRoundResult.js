@@ -51,8 +51,8 @@ const createCells = (firstRound) => {
   return element;
 };
 
-const FirstRoundResult = ({ firstRound }) => {
+const EachRoundResult = ({ firstRound }) => {
   return <Wrapper>{createCells(firstRound)}</Wrapper>;
 };
 
-export default FirstRoundResult;
+export default EachRoundResult;
