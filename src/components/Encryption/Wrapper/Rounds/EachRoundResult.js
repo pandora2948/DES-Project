@@ -1,58 +1,120 @@
 import styled from "@emotion/styled";
 import mixins from "assets/mixins";
 import variables from "assets/variables";
+import { useMemo } from "react";
 
 const Wrapper = styled.div`
-  ${mixins.EncryptedBox}
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Container = styled.div`
+  ${mixins.PlainTextBox}
+  width: 45%;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 `;
 
-const FirsRoundTable = styled.table`
-  ${mixins.TableStyle}
+const RoundTable = styled.table`
+  ${mixins.TableStyle};
 
   td {
-    color: ${variables.colors.encryptedBlueColor};
     border-color: ${variables.colors.encryptedBlueColor};
   }
 `;
 
-const createCells = (firstRound) => {
-  const table = [];
-  let count = 0;
+const generateTables = (eachRounds) => {
+  const { leftBlock, rightBlock } = eachRounds;
 
-  for (let i = 0; i < 8; i += 1) {
-    const rows = [];
+  const leftElement = [];
+  const rightElement = [];
+
+  for (let i = 1; i < 17; i += 1) {
+    let count = 0;
+    const leftTable = [];
+    const rightTable = [];
 
     for (let j = 0; j < 4; j += 1) {
-      const data = (
-        <td key={`FR - td - ${Math.random().toString().slice(3)}`}>
-          {firstRound[count]}
-        </td>
+      const leftRow = [];
+      const rightRow = [];
+
+      for (let k = 0; k < 8; k += 1) {
+        const leftData = (
+          <td key={`round-table - td - ${Math.random().toString().slice(3)}`}>
+            {leftBlock[i][count]}
+          </td>
+        );
+
+        const rightData = (
+          <td key={`round-table - td - ${Math.random().toString().slice(3)}`}>
+            {rightBlock[i][count]}
+          </td>
+        );
+
+        leftRow.push(leftData);
+        rightRow.push(rightData);
+        count += 1;
+      }
+
+      leftTable.push(
+        <tr key={`round-table - tr - ${Math.random().toString().slice(3)}`}>
+          {leftRow}
+        </tr>
       );
-      rows.push(data);
-      count += 1;
+
+      rightTable.push(
+        <tr key={`round-table - tr - ${Math.random().toString().slice(3)}`}>
+          {rightRow}
+        </tr>
+      );
     }
-    table.push(
-      <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
+
+    leftElement.push(
+      <RoundTable
+        key={`round-table - table - ${Math.random().toString().slice(3)}`}
+      >
+        <tbody
+          key={`round-table -  tbody - ${Math.random().toString().slice(3)}`}
+        >
+          {leftTable}
+        </tbody>
+      </RoundTable>
+    );
+
+    rightElement.push(
+      <RoundTable
+        key={`round-table - table - ${Math.random().toString().slice(3)}`}
+      >
+        <tbody
+          key={`round-table - tbody - ${Math.random().toString().slice(3)}`}
+        >
+          {rightTable}
+        </tbody>
+      </RoundTable>
     );
   }
 
-  const element = (
-    <FirsRoundTable key={`FR - table - ${Math.random().toString().slice(3)}`}>
-      <tbody key={`FR - tbody - ${Math.random().toString().slice(3)}`}>
-        {table}
-      </tbody>
-    </FirsRoundTable>
-  );
-
-  return element;
+  return { leftElement, rightElement };
 };
 
-const EachRoundResult = ({ firstRound }) => {
-  return <Wrapper>{createCells(firstRound)}</Wrapper>;
+const EachRoundResult = ({ eachRounds }) => {
+  const { leftElement, rightElement } = useMemo(
+    () => generateTables(eachRounds),
+    [eachRounds]
+  );
+
+  return (
+    <Wrapper>
+      <Container>{leftElement}</Container>
+      <Container>{rightElement}</Container>
+    </Wrapper>
+  );
 };
 
 export default EachRoundResult;

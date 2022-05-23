@@ -162,7 +162,7 @@ const EncryptionWrapper = ({
           <PermutationBox pBox={pBox} />
         </Panel>
         <Panel header="Each Round Result" key="first_round_result">
-          <EachRoundResult firstRound={(leftBlock[1], rightBlock[1])} />
+          <EachRoundResult eachRounds={{ leftBlock, rightBlock }} />
         </Panel>
         <Panel header="LastRound Result" key="last_round_result">
           <EncryptedValue FPResult={FPResult} />
