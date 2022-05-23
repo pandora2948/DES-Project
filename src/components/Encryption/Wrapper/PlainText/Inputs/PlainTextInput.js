@@ -62,6 +62,7 @@ const toCodes = (input) => {
 
     const leftPermutations = [];
     const rightPermutations = [];
+
     for (let i = 0; i < numberOfTable; i += 1) {
       const leftPermutation = [];
       const rightPermutation = [];
