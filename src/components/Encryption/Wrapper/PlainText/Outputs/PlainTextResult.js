@@ -27,9 +27,9 @@ const StyledCollapse = styled(Collapse)`
 const PlainTextResult = ({
   plainText: {
     codeBlocks,
-    initialPermutation,
-    dividedPermutation,
-    expensionPermutation,
+    initialPermutations,
+    dividedPermutations,
+    expensionPermutations,
   },
 }) => {
   return (
@@ -39,13 +39,13 @@ const PlainTextResult = ({
           <PlainBitOutput codeBlocks={codeBlocks} />
         </Panel>
         <Panel header="Initial Permutation">
-          <InitialPermutation initialPermutation={initialPermutation} />
+          <InitialPermutation initialPermutations={initialPermutations} />
         </Panel>
         <Panel header="Initial permutation Divided">
-          <IPDivide dividedPermutation={dividedPermutation} />
+          <IPDivide dividedPermutations={dividedPermutations} />
         </Panel>
         <Panel header="Expension Permutation">
-          <ExpensionPermutation expensionPermutation={expensionPermutation} />
+          <ExpensionPermutation expensionPermutations={expensionPermutations} />
         </Panel>
       </StyledCollapse>
     </Wrapper>

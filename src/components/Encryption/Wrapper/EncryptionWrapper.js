@@ -31,11 +31,18 @@ const StyledCollapse = styled(Collapse)`
   }
 `;
 
-const handleXOR = (expensionPermutation, finalKeys) => {
+const handleXOR = (expensionPermutation, finalKeys, rounds, isEncryption) => {
   const exclusiveRound = [];
+  const currentRoundKey = [];
+  if (isEncryption) {
+    currentRoundKey.push(...finalKeys[rounds]);
+  } else {
+    const decryptionRound = 15 - rounds;
+    currentRoundKey.push(...finalKeys[decryptionRound]);
+  }
 
   for (let i = 0; i < 48; i += 1) {
-    exclusiveRound.push(expensionPermutation[i] ^ finalKeys[i]);
+    exclusiveRound.push(expensionPermutation[i] ^ currentRoundKey[i]);
   }
 
   return exclusiveRound;
@@ -87,7 +94,7 @@ const handlePermutationXor = (pBox, leftPermutations) => {
   return exclusiveOr;
 };
 
-const roundHandler = (leftBlocks, rightBlocks, finalKeys) => {
+const roundHandler = (leftBlocks, rightBlocks, finalKeys, isEncryption) => {
   const leftSide = leftBlocks.map((el) => [[...el]]);
   const rightSide = rightBlocks.map((el) => [[...el]]);
   const blocks = { leftSide: leftSide, rightSide: rightSide };
@@ -103,7 +110,7 @@ const roundHandler = (leftBlocks, rightBlocks, finalKeys) => {
         expensionPermutation.push(blocks.rightSide[i][j][index]);
       }
 
-      const xor = handleXOR(expensionPermutation, finalKeys[j]);
+      const xor = handleXOR(expensionPermutation, finalKeys, j, isEncryption);
       const sBox = handleSubstitution(xor);
       const pBox = handlePermutationBox(sBox);
       const roundResult = handlePermutationXor(pBox, blocks.leftSide[i][j]);
@@ -167,38 +174,49 @@ const EncryptionWrapper = ({
     dividedPermutations: { leftPermutations, rightPermutations },
   },
   keyValue: { finalKeys },
+  isEncryption,
 }) => {
   const { xor, sBox, pBox, leftSide, rightSide } = roundHandler(
     leftPermutations,
     rightPermutations,
-    finalKeys
+    finalKeys,
+    isEncryption
   );
-
   const FPResults = handleFinalPermutation(leftSide, rightSide);
-
   const resultCharactor = encryptedCharactorHandler(FPResults);
-
-  return (
-    <Wrapper>
-      <StyledCollapse accordion bordered={false}>
-        <Panel header="XOR KEY" key="xor_panel">
-          <KeyXOR xor={xor} />
-        </Panel>
-        <Panel header="Substitution Box" key="sub_box">
-          <SubstitutionBox sBox={sBox} />
-        </Panel>
-        <Panel header="Permutation Box" key="permutation_box">
-          <PermutationBox pBox={pBox} />
-        </Panel>
-        <Panel header="Each Round Result" key="first_round_result">
-          <EachRoundResult eachRounds={{ leftSide, rightSide }} />
-        </Panel>
-        <Panel header="LastRound Result" key="last_round_result">
-          <EncryptedValue FPResult={FPResults} resultChar={resultCharactor} />
-        </Panel>
-      </StyledCollapse>
-    </Wrapper>
-  );
+  if (isEncryption) {
+    return (
+      <Wrapper>
+        <StyledCollapse accordion bordered={false}>
+          <Panel header="XOR KEY" key="xor_panel">
+            <KeyXOR xor={xor} />
+          </Panel>
+          <Panel header="Substitution Box" key="sub_box">
+            <SubstitutionBox sBox={sBox} />
+          </Panel>
+          <Panel header="Permutation Box" key="permutation_box">
+            <PermutationBox pBox={pBox} />
+          </Panel>
+          <Panel header="Each Round Result" key="first_round_result">
+            <EachRoundResult eachRounds={{ leftSide, rightSide }} />
+          </Panel>
+          <Panel header="LastRound Result" key="last_round_result">
+            <EncryptedValue FPResult={FPResults} resultChar={resultCharactor} />
+          </Panel>
+        </StyledCollapse>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <StyledCollapse accordion bordered={false}>
+          <Panel header="LastRound Result" key="last_round_result">
+            <EncryptedValue FPResult={FPResults} resultChar={resultCharactor} />
+          </Panel>
+        </StyledCollapse>
+      </Wrapper>
+    );
+  }
 };
 
 export default EncryptionWrapper;

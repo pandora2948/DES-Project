@@ -19,11 +19,11 @@ const IpTable = styled.table`
   }
 `;
 
-const InitialPermutation = ({ initialPermutation }) => {
+const InitialPermutation = ({ initialPermutations }) => {
   const createCells = () => {
     const table = [];
 
-    for (let i = 0; i < initialPermutation.length; i += 1) {
+    for (let i = 0; i < initialPermutations.length; i += 1) {
       const cells = [];
       let count = 0;
 
@@ -33,7 +33,7 @@ const InitialPermutation = ({ initialPermutation }) => {
         for (let k = 0; k < 8; k += 1) {
           const data = (
             <td key={`IP - td - ${Math.random().toString().slice(3)}`}>
-              {initialPermutation[i][count]}
+              {initialPermutations[i][count]}
             </td>
           );
           rows.push(data);

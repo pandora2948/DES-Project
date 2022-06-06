@@ -42,7 +42,7 @@ const invisibleStyle = css`
   display: none;
 `;
 
-const Body = () => {
+const Body = ({ isEncryption }) => {
   const [inputType, setInputType] = useState();
   const [plainText, setPlainText] = useState({ isEmpty: true });
   const [keyValue, setKeyValue] = useState({ isEmpty: true });
@@ -71,6 +71,7 @@ const Body = () => {
         <PlainTextWrapper
           plainText={plainText}
           setPlainText={setPlainText}
+          isEncryption={isEncryption}
           visibility={inputType === "plainText" ? visibleStyle : invisibleStyle}
         />
         <KeyWrapper
@@ -80,7 +81,11 @@ const Body = () => {
         />
       </Container>
       {!plainText.isEmpty && !keyValue.isEmpty && (
-        <EncryptionWrapper keyValue={keyValue} plainText={plainText} />
+        <EncryptionWrapper
+          keyValue={keyValue}
+          plainText={plainText}
+          isEncryption={isEncryption}
+        />
       )}
     </Wrapper>
   );
