@@ -30,7 +30,7 @@ const RoundTable = styled.table`
 `;
 
 const generateTables = (eachRounds) => {
-  const { leftBlock, rightBlock } = eachRounds;
+  const { leftSide, rightSide } = eachRounds;
 
   const leftElement = [];
   const rightElement = [];
@@ -47,13 +47,13 @@ const generateTables = (eachRounds) => {
       for (let k = 0; k < 8; k += 1) {
         const leftData = (
           <td key={`round-table - td - ${Math.random().toString().slice(3)}`}>
-            {leftBlock[i][count]}
+            {leftSide[0][i][count]}
           </td>
         );
 
         const rightData = (
           <td key={`round-table - td - ${Math.random().toString().slice(3)}`}>
-            {rightBlock[i][count]}
+            {rightSide[0][i][count]}
           </td>
         );
 

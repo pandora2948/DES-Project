@@ -19,8 +19,20 @@ const FinalRoundTable = styled.table`
   }
 `;
 
-const EncryptedValue = ({ FPResult }) => {
-  const createCells = () => {
+const CharactorGrid = styled.div`
+  ${mixins.EncryptedBox}
+  width: 100%;
+  margin: 1rem 0;
+  text-align: center;
+  display: grid;
+  grid: auto-flow / repeat(8, 1fr);
+  row-gap: 0.5rem;
+`;
+
+const createCells = (resultBit) => {
+  const tables = [];
+
+  for (let i = 0; i < resultBit.length; i += 1) {
     let count = 0;
     const table = [];
     for (let j = 0; j < 8; j += 1) {
@@ -29,7 +41,7 @@ const EncryptedValue = ({ FPResult }) => {
       for (let k = 0; k < 8; k += 1) {
         const data = (
           <td key={`td - ${Math.random().toString().slice(3)}`}>
-            {FPResult[count]}
+            {resultBit[i][count]}
           </td>
         );
         rows.push(data);
@@ -40,19 +52,34 @@ const EncryptedValue = ({ FPResult }) => {
         <tr key={`tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
       );
     }
-
-    const Element = (
+    tables.push(
       <FinalRoundTable key={`table - ${Math.random().toString().slice(3)}`}>
         <tbody key={`tbody - ${Math.random().toString().slice(3)}`}>
           {table}
         </tbody>
       </FinalRoundTable>
     );
+  }
 
-    return Element;
-  };
+  return tables;
+};
 
-  return <Wrapper>{createCells()}</Wrapper>;
+const createGrid = (charactor) => {
+  const chars = charactor.map((el) => {
+    return (
+      <div key={`charactor - ${Math.random().toString().slice(3)}`}>{el}</div>
+    );
+  });
+  return <CharactorGrid>{chars}</CharactorGrid>;
+};
+
+const EncryptedValue = ({ FPResult, resultChar }) => {
+  return (
+    <Wrapper>
+      {createCells(FPResult)}
+      {createGrid(resultChar)}
+    </Wrapper>
+  );
 };
 
 export default EncryptedValue;
