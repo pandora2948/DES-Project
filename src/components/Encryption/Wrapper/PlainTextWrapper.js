@@ -12,10 +12,15 @@ const Wrapper = styled.div`
   ${({ visibility }) => visibility};
 `;
 
-const PlainTextWrapper = ({ plainText, setPlainText, visibility }) => {
+const PlainTextWrapper = ({
+  plainText,
+  setPlainText,
+  isEncryption,
+  visibility,
+}) => {
   return (
     <Wrapper visibility={visibility}>
-      <PlainTextInput setPlainText={setPlainText} />
+      <PlainTextInput setPlainText={setPlainText} isEncryption={isEncryption} />
       {!plainText.isEmpty && <PlainTextResult plainText={plainText} />}
     </Wrapper>
   );

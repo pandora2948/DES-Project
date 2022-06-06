@@ -27,7 +27,7 @@ const DivTable = styled.table`
 `;
 
 const IPDivide = ({
-  dividedPermutation: { leftPermutations, rightPermutations },
+  dividedPermutations: { leftPermutations, rightPermutations },
 }) => {
   const divideTable = useCallback(() => {
     const leftElement = [];
