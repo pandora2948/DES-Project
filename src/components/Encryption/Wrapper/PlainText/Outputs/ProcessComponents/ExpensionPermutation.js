@@ -20,35 +20,33 @@ const EpTable = styled.table`
 const generateElement = (expensionPermutation) => {
   const table = [];
 
-  for (let i = 0; i < expensionPermutation.length; i += 1) {
-    const cells = [];
-    let count = 0;
+  const cells = [];
+  let count = 0;
 
-    for (let j = 0; j < 8; j += 1) {
-      const rows = [];
+  for (let j = 0; j < 8; j += 1) {
+    const rows = [];
 
-      for (let k = 0; k < 6; k += 1) {
-        const data = (
-          <td key={`EP - td - ${Math.random().toString().slice(3)}`}>
-            {expensionPermutation[i][count]}
-          </td>
-        );
-        rows.push(data);
-        count += 1;
-      }
-      cells.push(
-        <tr key={`EP - tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
+    for (let k = 0; k < 6; k += 1) {
+      const data = (
+        <td key={`EP - td - ${Math.random().toString().slice(3)}`}>
+          {expensionPermutation[0][count]}
+        </td>
       );
+      rows.push(data);
+      count += 1;
     }
-
-    table.push(
-      <EpTable key={`EP - table - ${Math.random().toString().slice(3)}`}>
-        <tbody key={`EP - tbody - ${Math.random().toString().slice(3)}`}>
-          {cells}
-        </tbody>
-      </EpTable>
+    cells.push(
+      <tr key={`EP - tr - ${Math.random().toString().slice(3)}`}>{rows}</tr>
     );
   }
+
+  table.push(
+    <EpTable key={`EP - table - ${Math.random().toString().slice(3)}`}>
+      <tbody key={`EP - tbody - ${Math.random().toString().slice(3)}`}>
+        {cells}
+      </tbody>
+    </EpTable>
+  );
 
   return table;
 };

@@ -47,9 +47,10 @@ const toCodes = (input) => {
       length += 1;
     }
 
-    const initialPermutation = [];
+    const initialPermutations = [];
     const codeBlocks = [];
     const numberOfTable = length / 8;
+
     for (let i = 0; i < numberOfTable; i += 1) {
       const codeBlock = charactorsCodes.splice(0, 64);
       const ipTable = [];
@@ -57,7 +58,7 @@ const toCodes = (input) => {
         ipTable.push(codeBlock[index]);
       }
       codeBlocks.push(codeBlock);
-      initialPermutation.push(ipTable);
+      initialPermutations.push(ipTable);
     }
 
     const leftPermutations = [];
@@ -68,23 +69,26 @@ const toCodes = (input) => {
       const rightPermutation = [];
 
       for (let j = 0; j < 32; j += 1) {
-        const leftData = initialPermutation[i][j];
-        const rightData = initialPermutation[i][j + 32];
+        const leftData = initialPermutations[i][j];
+        const rightData = initialPermutations[i][j + 32];
         leftPermutation.push(leftData);
         rightPermutation.push(rightData);
       }
+
       leftPermutations.push(leftPermutation);
       rightPermutations.push(rightPermutation);
     }
-    const dividedPermutation = { leftPermutations, rightPermutations };
 
-    const expensionPermutation = [];
+    const dividedPermutations = { leftPermutations, rightPermutations };
+
+    const expensionPermutations = [];
+
     for (let i = 0; i < numberOfTable; i += 1) {
       const page = [];
       for (let index of EP) {
         page.push(rightPermutations[i][index]);
       }
-      expensionPermutation.push(page);
+      expensionPermutations.push(page);
     }
 
     const isEmpty = false;
@@ -92,9 +96,9 @@ const toCodes = (input) => {
     return {
       isEmpty,
       codeBlocks,
-      initialPermutation,
-      dividedPermutation,
-      expensionPermutation,
+      initialPermutations,
+      dividedPermutations,
+      expensionPermutations,
     };
   }
 };
@@ -117,11 +121,7 @@ const PlainTextInput = ({ setPlainText }) => {
   return (
     <InputWrapper>
       <div className="header">PLAIN TEXT INPUT</div>
-      <textarea
-        id="plainTextInput"
-        onKeyDown={handleInputText}
-        maxLength={8}
-      ></textarea>
+      <textarea id="plainTextInput" onKeyDown={handleInputText}></textarea>
     </InputWrapper>
   );
 };

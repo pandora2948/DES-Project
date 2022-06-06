@@ -87,67 +87,96 @@ const handlePermutationXor = (pBox, leftPermutations) => {
   return exclusiveOr;
 };
 
-const roundHandler = (leftBlock, rightBlock, finalKeys) => {
-  const blocks = { leftBlock: [leftBlock], rightBlock: [rightBlock] };
+const roundHandler = (leftBlocks, rightBlocks, finalKeys) => {
+  const leftSide = leftBlocks.map((el) => [[...el]]);
+  const rightSide = rightBlocks.map((el) => [[...el]]);
+  const blocks = { leftSide: leftSide, rightSide: rightSide };
   const xorRounds = [];
   const sBoxRounds = [];
   const pBoxRounds = [];
 
-  for (let i = 0; i < 16; i += 1) {
-    const expensionPermutation = [];
+  for (let i = 0; i < blocks.leftSide.length; i += 1) {
+    for (let j = 0; j < 16; j += 1) {
+      const expensionPermutation = [];
 
-    for (let index of EP) {
-      expensionPermutation.push(blocks.rightBlock[i][index]);
-    }
+      for (let index of EP) {
+        expensionPermutation.push(blocks.rightSide[i][j][index]);
+      }
 
-    const xor = handleXOR(expensionPermutation, finalKeys[i]);
-    const sBox = handleSubstitution(xor);
-    const pBox = handlePermutationBox(sBox);
-    const roundResult = handlePermutationXor(pBox, blocks.leftBlock[i]);
-    xorRounds.push(xor);
-    sBoxRounds.push(sBox);
-    pBoxRounds.push(pBox);
-    if (i === 15) {
-      blocks.leftBlock.push(roundResult);
-      blocks.rightBlock.push(blocks.rightBlock[i]);
-    } else {
-      blocks.leftBlock.push(blocks.rightBlock[i]);
-      blocks.rightBlock.push(roundResult);
+      const xor = handleXOR(expensionPermutation, finalKeys[j]);
+      const sBox = handleSubstitution(xor);
+      const pBox = handlePermutationBox(sBox);
+      const roundResult = handlePermutationXor(pBox, blocks.leftSide[i][j]);
+      xorRounds.push(xor);
+      sBoxRounds.push(sBox);
+      pBoxRounds.push(pBox);
+      if (j === 15) {
+        blocks.leftSide[i].push(roundResult);
+        blocks.rightSide[i].push(blocks.rightSide[i][j]);
+      } else {
+        blocks.leftSide[i].push(blocks.rightSide[i][j]);
+        blocks.rightSide[i].push(roundResult);
+      }
     }
   }
+
   const eachResult = {
     xor: xorRounds[0],
     sBox: sBoxRounds[0],
     pBox: pBoxRounds[0],
   };
 
-  return { eachResult, ...blocks };
+  return { ...eachResult, ...blocks };
 };
 
 const handleFinalPermutation = (leftBlock, rightBlock) => {
-  const preFinalPermutation = [...leftBlock, ...rightBlock];
   const FP = [];
 
-  for (let index of finalPermutationTable) {
-    FP.push(preFinalPermutation[index]);
+  for (let i = 0; i < rightBlock.length; i += 1) {
+    const blocks = [];
+    const preFinalPermutation = [...leftBlock[i][16], ...rightBlock[i][16]];
+
+    for (let index of finalPermutationTable) {
+      blocks.push(preFinalPermutation[index]);
+    }
+    FP.push(blocks);
   }
 
   return FP;
 };
 
+const encryptedCharactorHandler = (encryptedArray) => {
+  const resultCharactor = [];
+  for (let i = 0; i < encryptedArray.length; i += 1) {
+    const resultCopy = encryptedArray[i].map((el) => el.toString());
+
+    for (let j = 0; j < 8; j += 1) {
+      const codes = resultCopy.splice(0, 8).reduce((prv, cur) => {
+        return prv + cur;
+      });
+      const char = String.fromCharCode(parseInt(codes, 2));
+      resultCharactor.push(char);
+    }
+  }
+
+  return resultCharactor;
+};
+
 const EncryptionWrapper = ({
   plainText: {
-    dividedPermutation: { leftPermutations, rightPermutations },
+    dividedPermutations: { leftPermutations, rightPermutations },
   },
   keyValue: { finalKeys },
 }) => {
-  const {
-    eachResult: { xor, sBox, pBox },
-    leftBlock,
-    rightBlock,
-  } = roundHandler(leftPermutations[0], rightPermutations[0], finalKeys);
+  const { xor, sBox, pBox, leftSide, rightSide } = roundHandler(
+    leftPermutations,
+    rightPermutations,
+    finalKeys
+  );
 
-  const FPResult = handleFinalPermutation(leftBlock[16], rightBlock[16]);
+  const FPResults = handleFinalPermutation(leftSide, rightSide);
+
+  const resultCharactor = encryptedCharactorHandler(FPResults);
 
   return (
     <Wrapper>
@@ -162,10 +191,10 @@ const EncryptionWrapper = ({
           <PermutationBox pBox={pBox} />
         </Panel>
         <Panel header="Each Round Result" key="first_round_result">
-          <EachRoundResult eachRounds={{ leftBlock, rightBlock }} />
+          <EachRoundResult eachRounds={{ leftSide, rightSide }} />
         </Panel>
         <Panel header="LastRound Result" key="last_round_result">
-          <EncryptedValue FPResult={FPResult} />
+          <EncryptedValue FPResult={FPResults} resultChar={resultCharactor} />
         </Panel>
       </StyledCollapse>
     </Wrapper>
